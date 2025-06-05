@@ -1,0 +1,73 @@
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding-inline: 10px;
+    .head{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1{
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 40px;
+            font-weight: 700;
+        }
+        h3{
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 500;  
+        }
+    }
+    .form{
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-inline: 20px;
+        P{
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        input{
+            width: 100%;
+            max-width: 310px;
+            height: 24px;
+            border-radius: 40px;
+            padding-inline: 24px;
+            padding-block: 12px;
+            border: 1px solid #FFFFFF;
+            background-color: #1C1A20CC;
+            color: #FFFFFF;
+        }
+        input::placeholder {
+            color: #FFFFFF; // grauer Platzhaltertext
+        }
+        button{
+            height: 48px;
+            width: 126px;
+            border-radius: 40px;
+            padding-block: 12px;
+            padding-inline: 16px;
+            background-color: #2E3EDF;
+            border: none;
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}
+
+
+@media (max-width: 420px){
+    .form{
+        input{
+            width: 250px;
+        }
+    }
+}

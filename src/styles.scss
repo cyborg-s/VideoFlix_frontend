@@ -1,1 +1,58 @@
+
+/* dm-sans-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/dm-sans-v16-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* dm-sans-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./assets/fonts/dm-sans-v16-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* dm-sans-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./assets/fonts/dm-sans-v16-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
 /* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+
+body.startpage-background {
+  background: 
+    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.7) 100%),
+    url('/assets/img/startBG.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+body.signup-background {
+  background: 
+    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.7) 100%),
+    url('/assets/img/laptop.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+body.login-background {
+  background: 
+    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.7) 100%),
+    url('/assets/img/popcorn.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+body.background {
+    background-color: #141414;
+}

@@ -1,0 +1,45 @@
+.headerSection{
+    height: 108px;
+    width: 100vvw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 16px;
+    padding-block: 10px;
+    .mobileLogo{
+        display: block;
+        height: 32px;
+        width: auto;
+    }
+    .desktopLogo{
+        display: none;
+        height: 32px;
+    }
+    .loginButton{
+        height: 48px;
+        background-color: #2E3EDF;
+        border: none;
+        border-radius: 40px;
+        padding-inline: 24px;
+        padding-block: 12px;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+}
+
+
+@media screen and (min-width: 720px) {
+    .headerSection{
+        padding-inline: 96px;
+    }
+
+    .mobileLogo {
+        display: none!important;
+    }
+
+    .desktopLogo {
+        display: block!important;
+    }
+}

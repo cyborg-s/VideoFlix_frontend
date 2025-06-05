@@ -1,0 +1,14 @@
+<section class="headerSection">
+  <img
+    (click)="goToStartpage()"
+    class="mobileLogo"
+    src="assets/img/Capa_1.svg"
+    alt="Videoflix Logo"
+  /><img
+    (click)="goToStartpage()"
+    class="desktopLogo"
+    src="assets/img/Logo.svg"
+    alt="Videoflix Logo"
+  />
+  @if (router.url !== '/login'){<button (click)="goToLogin()" class="loginButton">LogIn</button>}
+</section>
