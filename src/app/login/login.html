@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div>
+  <h1>Log in</h1>
+  <form (submit)="logIn()">
+    <div>
+      <img src="../../assets/img/mail.svg" alt="" />
+      <input id="email" name="email" type="text" placeholder="Email Address" />
+    </div>
+
+    <div>
+      <img src="../../assets/img/password.svg" alt="" />
+      <input
+        id="password"
+        [type]="showPassword ? 'text' : 'password'"
+        name="password"
+        placeholder="Enter a password"
+      />
+      <img
+        src="../../assets/img/{{ showPassword ? 'visibility_off' : 'visibility' }}.svg"
+        alt="Toggle password visibility"
+        (click)="togglePasswordVisibility()"
+        style="cursor: pointer"
+      />
+    </div>
+    <button type="submit">Log in</button>
+  </form>
+  <footer class="bottom">
+    <p class="forgotPW">Forgot password?</p>
+    <span
+      ><p>New to Videoflix?</p>
+      <p class="signUp">Sign Up now</p></span
+    >
+  </footer>
+</div>
