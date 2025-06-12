@@ -1,0 +1,98 @@
+.hero-background {
+  position: absolute; // damit es auch hinter dem Header liegt
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  max-width: 1440px;
+  height: 54vw;
+  max-height: 800px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; // hinter allem
+}
+
+.dashboard-content {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 96px;
+  box-sizing: border-box;
+  z-index: 1;
+
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 400px;
+    max-height: 800px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .hero-content {
+      width: 100%;
+      max-width: 440px;
+      color: white;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .category {
+    
+    padding: 20px;
+    border-radius: 8px;
+    color: #FFFFFF;
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 16px;
+      padding-bottom: 10px;
+      -webkit-overflow-scrolling: touch;
+
+      /* Scrollbar ausblenden */
+      -ms-overflow-style: none;  /* IE und Edge */
+      scrollbar-width: none;     /* Firefox */
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;             /* Chrome, Safari, Opera */
+    }
+
+    img {
+      width: 213px;
+      height: 120px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      object-fit: cover;
+      cursor: pointer;
+      user-select: none; /* Markieren verhindern */
+      -webkit-user-drag: none;
+    }
+  }
+
+  /* Falls du der ersten Kategorie noch eigene Styles geben willst: */
+  .first-category {
+    margin-top: 60px;
+    /* z.B. spezielles Margin oder so */
+  }
+}
+
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  -ms-overflow-style: none;  /* IE und Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}
+
+
+:host {
+  max-width: 1440px;
+  width: 100vw;
+}

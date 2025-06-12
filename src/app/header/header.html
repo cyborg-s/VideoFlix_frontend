@@ -4,11 +4,29 @@
     class="mobileLogo"
     src="assets/img/Capa_1.svg"
     alt="Videoflix Logo"
-  /><img
+  />
+  <img
     (click)="goToStartpage()"
     class="desktopLogo"
     src="assets/img/Logo.svg"
     alt="Videoflix Logo"
   />
-  @if (router.url !== '/login'){<button (click)="goToLogin()" class="loginButton">LogIn</button>}
+
+  <!-- Login-Button: Nur anzeigen wenn NICHT eingeloggt und nicht auf /login -->
+  <button 
+    *ngIf="!isLoggedIn && router.url !== '/login'"
+    (click)="goToLogin()" 
+    class="loginButton"
+  >
+    LogIn
+  </button>
+
+  <!-- Logout-Button: anzeigen wenn eingeloggt UND auf /dashboard, /legal-notice oder /imprint -->
+  <button 
+    *ngIf="isLoggedIn && (router.url === '/dashboard' || router.url === '/legalnotice' || router.url === '/imprint')"
+    (click)="logOut()" 
+    class="loginButton"
+  ><img src="../../assets/img/logout.svg" alt="">
+    LogOut
+  </button>
 </section>

@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<div class="hero-background" 
+     [ngStyle]="{
+    'background-image': heroVideo
+      ? 'linear-gradient(to bottom, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%), url(' + heroVideo.thumbnail + ')'
+      : 'linear-gradient(to bottom, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%)'
+     }">
+</div>
+
+<div class="dashboard-content">
+  <section class="hero" *ngIf="heroVideo">
+    <div class="hero-content">
+      <h1>{{ heroVideo.title }}</h1>
+      <p>{{ heroVideo.description }}</p>
+      <button class="play-button">▶ Play</button>
+    </div>
+  </section>
+
+<section class="category first-category" *ngIf="categories.length">
+  <h2>{{ categories[0].name }}</h2>
+  <div class="carousel" #carousel>
+    <img *ngFor="let movie of categories[0].movies" [src]="movie.img" [alt]="movie.title" draggable="false" (click)="onMovieClick(movie, $event)"/>
+  </div>
+</section>
+
+
+  <!-- weitere Kategorien -->
+     <section
+    class="category"
+    *ngFor="let category of categories.slice(1); let i = index"
+  >
+    <h2>{{ category.name }}</h2>
+    <div class="carousel" [attr.data-index]="i">
+      <img *ngFor="let movie of category.movies"
+           [src]="movie.img"
+           [alt]="movie.title"
+           draggable="false"
+           (click)="onMovieClick(movie, $event)" />
+    </div>
+  </section>
+</div>

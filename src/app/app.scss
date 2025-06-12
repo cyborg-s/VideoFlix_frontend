@@ -6,6 +6,7 @@ main{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    align-items: center;
     width: 100%;
 }
 
@@ -16,9 +17,21 @@ main{
     align-items: center;
 }
 
-.outlet{
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.outlet {
+    width: 100vw;
+    max-width: 1440px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.outlet.dashboard-align-start {
+  align-items: flex-start;
+}
+
+app-header{
+    width: 100%;
+    display: flex;
+}
+

@@ -1,35 +1,55 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, Inject } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
+
 import { Header } from './header/header';
 import { Footer } from './footer/footer';
-import { Router, NavigationEnd } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Footer, Header],
+  standalone: true,
+  imports: [RouterOutlet, Footer, Header, CommonModule, HttpClientModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrls: ['./app.scss'],
 })
 export class App {
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        document.body.className = ''; // reset
+  isDashboardRoute = false;
 
-        const url = event.urlAfterRedirects;
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          document.body.className = '';
 
-        if (url === '/' || url === '') {
-          // Startseite
-          document.body.classList.add('startpage-background');
-        } else if (url.startsWith('/login')) {
-          document.body.classList.add('login-background');
-        } else if (url.startsWith('/signup')) {
-          document.body.classList.add('signup-background');
-        } else {
-          // Alle anderen Seiten, z.B. dashboard, imprint, legalnotice, etc.
-          document.body.classList.add('background');
+          const url = event.urlAfterRedirects;
+
+          if (url === '/' || url === '') {
+            document.body.classList.add('startpage-background');
+          } else if (
+            url.startsWith('/login') ||
+            url.startsWith('/password-reset') ||
+            url.startsWith('/forgot-password')
+          ) {
+            document.body.classList.add('login-background');
+          } else if (url.startsWith('/signup')) {
+            document.body.classList.add('signup-background');
+          } else {
+            document.body.classList.add('background');
+          }
         }
-      }
-    });
+      });
+    }
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.isDashboardRoute = this.router.url === '/dashboard';
+      });
   }
 }

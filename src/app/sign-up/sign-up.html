@@ -1,51 +1,52 @@
-<div>
-    <h1>SignUp</h1>
-  <form (submit)="signUp()">
-    <div>
-      <img src="../../assets/img/mail.svg" alt="" />
+<div class="signup-container">
+  <h1>SignUp</h1>
+  <form (ngSubmit)="signUp()" #signupForm="ngForm">
+    
+    <div class="input-group">
+      <img src="../../assets/img/mail.svg" alt="email icon" />
       <input
-        id="email"
-        [(ngModel)]="email"
+        type="email"
         name="email"
-        type="text"
+        [(ngModel)]="email"
         placeholder="Email Address"
+        required
       />
     </div>
 
-    <div>
-      <img src="../../assets/img/password.svg" alt="" />
+    <div class="input-group">
+      <img src="../../assets/img/password.svg" alt="password icon" />
       <input
-        id="password"
         [type]="showPassword ? 'text' : 'password'"
-        [(ngModel)]="password"
         name="password"
+        [(ngModel)]="password"
         placeholder="Enter a password"
+        required
       />
       <img
         src="../../assets/img/{{ showPassword ? 'visibility_off' : 'visibility' }}.svg"
-        alt="Toggle password visibility"
+        alt="toggle visibility"
         (click)="togglePasswordVisibility()"
-        style="cursor: pointer"
+        class="toggle-icon"
       />
     </div>
 
-    <div>
-      <img src="../../assets/img/password.svg" alt="" />
+    <div class="input-group">
+      <img src="../../assets/img/password.svg" alt="password icon" />
       <input
-        id="repeatedPassword"
         [type]="showPassword ? 'text' : 'password'"
-        [(ngModel)]="repeatedPassword"
         name="repeatedPassword"
+        [(ngModel)]="repeatedPassword"
         placeholder="Confirm Password"
+        required
       />
       <img
         src="../../assets/img/{{ showPassword ? 'visibility_off' : 'visibility' }}.svg"
-        alt="Toggle password visibility"
+        alt="toggle visibility"
         (click)="togglePasswordVisibility()"
-        style="cursor: pointer"
+        class="toggle-icon"
       />
     </div>
 
-    <button type="submit">Get Started</button>
+    <button type="submit" [disabled]="signupForm.invalid">Get Started</button>
   </form>
 </div>

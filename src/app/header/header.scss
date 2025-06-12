@@ -1,6 +1,9 @@
+
+
 .headerSection{
     height: 108px;
-    width: 100vvw;
+    max-width: 1348px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,10 +13,16 @@
         display: block;
         height: 32px;
         width: auto;
+        &:hover{
+            cursor: pointer;
+        }
     }
     .desktopLogo{
         display: none;
         height: 32px;
+        &:hover{
+            cursor: pointer;
+        }
     }
     .loginButton{
         height: 48px;
@@ -26,6 +35,8 @@
         font-size: 18px;
         font-weight: 700;
         color: #FFFFFF;
+        display: flex;
+        align-items: center;
     }
 }
 

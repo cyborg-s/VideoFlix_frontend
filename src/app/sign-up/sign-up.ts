@@ -1,21 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-signup',
-  imports: [FormsModule],
+  standalone: true, // wichtig für standalone component
+  imports: [FormsModule, HttpClientModule],
   templateUrl: './sign-up.html',
-  styleUrls: ['./sign-up.scss'],
+  styleUrls: ['./sign-up.scss'],  // styleUrls (Plural) statt styleUrl
 })
 export class Signup implements OnInit {
   email: string = '';
   password: string = '';
   repeatedPassword: string = '';
-
   showPassword: boolean = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -28,15 +35,27 @@ export class Signup implements OnInit {
   }
 
   signUp(): void {
-    console.log('E-Mail:', this.email);
-    console.log('Passwort:', this.password);
-    console.log('Wiederholung:', this.repeatedPassword);
+    if (!this.email || !this.password || !this.repeatedPassword) {
+      alert('Bitte alle Felder ausfüllen.');
+      return;
+    }
 
     if (this.password !== this.repeatedPassword) {
       alert('Passwörter stimmen nicht überein');
       return;
     }
 
-    // Deine Registrierung/Backend-Logik hier
+    this.authService.register(this.email, this.password, this.repeatedPassword).subscribe({
+      next: (res) => {
+        alert(res.message || 'Registrierung erfolgreich. Bitte E-Mail bestätigen.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error(err);
+        const errorMsg =
+          err.error?.password || err.error?.email || err.error?.non_field_errors || 'Registrierung fehlgeschlagen.';
+        alert(errorMsg);
+      },
+    });
   }
 }

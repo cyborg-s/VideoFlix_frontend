@@ -29,8 +29,22 @@
 body{
     margin: 0;
     font-family: 'DM Sans', sans-serif;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
+app-root{
+    width: 100%;
+    display: flex;
+}
+
+html{
+    display: flex;
+    justify-content: center;
+}
 
 body.startpage-background {
   background: 
@@ -55,4 +69,12 @@ body.login-background {
 
 body.background {
     background-color: #141414;
+}
+
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #1b1b22d9 inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #1b1b22d9 inset !important;
+  -webkit-text-fill-color: #D3D3D3 !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

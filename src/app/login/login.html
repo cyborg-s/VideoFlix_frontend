@@ -3,13 +3,20 @@
   <form (submit)="logIn()">
     <div>
       <img src="../../assets/img/mail.svg" alt="" />
-      <input id="email" name="email" type="text" placeholder="Email Address" />
+      <input
+        id="email"
+        [(ngModel)]="email"
+        name="email"
+        type="text"
+        placeholder="Email Address"
+      />
     </div>
 
     <div>
       <img src="../../assets/img/password.svg" alt="" />
       <input
         id="password"
+        [(ngModel)]="password"
         [type]="showPassword ? 'text' : 'password'"
         name="password"
         placeholder="Enter a password"
@@ -21,13 +28,14 @@
         style="cursor: pointer"
       />
     </div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     <button type="submit">Log in</button>
   </form>
   <footer class="bottom">
-    <p class="forgotPW">Forgot password?</p>
+    <p class="forgotPW" (click)="goToForgotPassword()">Forgot password?</p>
     <span
       ><p>New to Videoflix?</p>
-      <p class="signUp">Sign Up now</p></span
+      <p class="signUp" (click)="goToSignUp()">Sign Up now</p></span
     >
   </footer>
 </div>

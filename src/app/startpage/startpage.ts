@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Header } from '../header/header';
-import { Footer } from '../footer/footer';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-startpage',
-  imports: [Header, Footer, FormsModule],
+  imports: [FormsModule],
   templateUrl: './startpage.html',
   styleUrl: './startpage.scss'
 })

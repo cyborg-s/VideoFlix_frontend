@@ -1,0 +1,11 @@
+<div>
+  <h1>Forgot your password?</h1>
+  <p>We will send you an email with instructions to reset your password.</p>
+  <form (submit)="sendEmail()">
+    <div>
+      <img src="../../assets/img/mail.svg" alt="" />
+      <input [(ngModel)]="email" id="email" name="email" type="text" placeholder="Email Address" />
+    </div>
+    <button type="submit" >Send Email</button>
+  </form>
+</div>
