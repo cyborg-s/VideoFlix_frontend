@@ -1,0 +1,45 @@
+.video-detail-container {
+  padding: 16px;
+  color: white;
+  min-height: 100vh;
+  background-color: #141414;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50vh;
+  width: 100%;
+    z-index: 0;
+}
+
+.video-detail-content {
+  padding-top: 55vh;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .play-button {
+    height: 48px;
+    background-color: #2E3EDF;
+    border: none;
+    border-radius: 40px;
+    padding-inline: 24px;
+    padding-block: 12px;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+  }
+}

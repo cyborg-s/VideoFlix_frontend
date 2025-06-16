@@ -1,0 +1,8 @@
+<div class="video-detail-container">
+  <div class="hero-background" [ngStyle]="getHeroStyle()"></div>
+  <div class="video-detail-content">
+    <h1>{{ video.title }}</h1>
+    <p>{{ video.description }}</p>
+    <button class="play-button" (click)="playVideo()">▶ Play</button>
+  </div>
+</div>

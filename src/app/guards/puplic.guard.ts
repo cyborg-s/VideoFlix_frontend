@@ -11,7 +11,7 @@ export class GuestGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.authService.isLoggedIn().pipe(
       map((isLoggedIn) => {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
         if (isLoggedIn) {
           this.router.navigate(['/dashboard']);
           return false;

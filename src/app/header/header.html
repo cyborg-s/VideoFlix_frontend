@@ -23,7 +23,7 @@
 
   <!-- Logout-Button: anzeigen wenn eingeloggt UND auf /dashboard, /legal-notice oder /imprint -->
   <button 
-    *ngIf="isLoggedIn && (router.url === '/dashboard' || router.url === '/legalnotice' || router.url === '/imprint')"
+    *ngIf="isLoggedIn && (router.url === '/dashboard' || router.url === '/legalnotice' || router.url === '/imprint' || router.url.startsWith('/video/'))"
     (click)="logOut()" 
     class="loginButton"
   ><img src="../../assets/img/logout.svg" alt="">

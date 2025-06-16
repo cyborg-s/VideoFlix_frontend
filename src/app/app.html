@@ -4,5 +4,5 @@
     <div class="outlet" [ngClass]="{'dashboard-align-start': isDashboardRoute}">
     <router-outlet />
     </div>
-    <app-footer class="footer"></app-footer>
+    <app-footer [isDashboard]="isDashboardRoute" class="footer"></app-footer>
 </main>

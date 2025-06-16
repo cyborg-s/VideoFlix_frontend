@@ -1,6 +1,17 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChildren,
+  ElementRef,
+  QueryList,
+  inject,
+} from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { VideoService } from '../services/video.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,65 +21,61 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./dashboard.scss'],
 })
 export class Dashboard implements OnInit, AfterViewInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private videoService = inject(VideoService);
+
   categories: { name: string; movies: any[] }[] = [];
   heroVideo: any = null;
+  heroThumbnailLoaded = false;
 
   private isDown = false;
   private startX = 0;
   private scrollLeft = 0;
   private activeCarousel: HTMLElement | null = null;
 
-  constructor(private http: HttpClient, private renderer: Renderer2) {}
+  @ViewChildren('carousel') carouselsRef!: QueryList<ElementRef>;
 
-  ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8000/api/videoflix/videos/').subscribe({
-      next: (videos) => {
-        if (!videos || videos.length === 0) return;
+ngOnInit(): void {
+  const data = this.route.snapshot.data;
+  const categories = data['categories']?.categories || [];
+  const continueList = data['categories']?.continueWatching || [];
 
-        const sortedVideos = [...videos].sort(
-          (a, b) =>
-            new Date(b.upload_date).getTime() - new Date(a.upload_date).getTime()
-        );
+  this.categories = categories;
 
-        this.heroVideo = sortedVideos[0];
-
-        const newOnVideoflix = {
-          name: 'New on Videoflix',
-          movies: sortedVideos.slice(0, 10).map((video) => ({
-            title: video.title,
-            img: video.thumbnail,
-            description: video.description,
-          })),
-        };
-
-        const grouped: { [genre: string]: any[] } = {};
-        for (const video of videos) {
-          if (!grouped[video.genre]) grouped[video.genre] = [];
-          grouped[video.genre].push({
-            title: video.title,
-            img: video.thumbnail,
-            description: video.description,
-          });
-        }
-
-        const genreCategories = Object.entries(grouped).map(([genre, movies]) => ({
-          name: this.capitalizeFirstLetter(genre),
-          movies,
-        }));
-
-        this.categories = [newOnVideoflix, ...genreCategories];
-      },
-      error: (err) => {
-        console.error('Fehler beim Laden der Videos:', err);
-      },
-    });
+  if (continueList.length > 0) {
+    if (this.categories.length === 0) {
+      this.categories.push({
+        name: 'Weiterschauen',
+        movies: continueList,
+      });
+    } else {
+      this.categories.splice(1, 0, {
+        name: 'Weiterschauen',
+        movies: continueList,
+      });
+    }
   }
 
-  ngAfterViewInit(): void {
-    const carousels = document.querySelectorAll('.carousel');
+  const allVideos = this.categories.flatMap((c) => c.movies);
+  const sorted = allVideos.sort((a, b) => b.id - a.id);
 
-    carousels.forEach((carousel) => {
-      const el = carousel as HTMLElement;
+  this.heroVideo = sorted[0] || null;
+  this.heroThumbnailLoaded = false;
+}
+
+
+
+  ngAfterViewInit(): void {
+    this.carouselsRef.changes.subscribe(() => {
+      this.bindCarouselEvents();
+    });
+    this.bindCarouselEvents();
+  }
+
+  private bindCarouselEvents() {
+    this.carouselsRef.forEach((carouselRef) => {
+      const el = carouselRef.nativeElement as HTMLElement;
 
       el.addEventListener('mousedown', (e: MouseEvent) => {
         this.isDown = true;
@@ -98,12 +105,38 @@ export class Dashboard implements OnInit, AfterViewInit {
     });
   }
 
-  onMovieClick(movie: any, event: MouseEvent) {
-    console.log('Video angeklickt:', movie.title);
+onMovieClick(movie: any, event: MouseEvent) {
+  const isMobile = window.innerWidth <= 720;
+
+  if (isMobile) {
+    this.router.navigate(['/video', movie.id]);
+  } else {
+    this.heroVideo = movie;
+    this.heroThumbnailLoaded = false;
+  }
+}
+
+  onHeroThumbnailLoad() {
+    this.heroThumbnailLoaded = true;
   }
 
-  private capitalizeFirstLetter(text: string): string {
-    if (!text) return '';
-    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  onPlayHeroVideo() {
+    if (!this.heroVideo || !this.heroVideo.id) {
+      console.warn('Kein Video zum Abspielen ausgewählt');
+      return;
+    }
+    this.router.navigate(['/player', this.heroVideo.id], {
+      queryParams: { position: this.heroVideo.position_in_seconds || 0 }
+    });
   }
+
+  getHeroStyle() {
+  return {
+    'background-image': `linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0) 50%, #141414 100%), url(${this.heroVideo.img})`,
+    'background-size': 'cover',
+    'background-position': 'center',
+    'background-repeat': 'no-repeat'
+  };
+}
+
 }

@@ -31,7 +31,7 @@ export class ForgotPw {
     this.authService.requestPasswordReset(this.email).subscribe({
       next: (response: any) => {
         alert('Wenn die E-Mail existiert, wurde ein Link zum Zurücksetzen verschickt.');
-        console.log('Response:', response);
+        
       },
       error: (error) => {
         console.error('Fehler beim Passwort-Reset Request:', error);

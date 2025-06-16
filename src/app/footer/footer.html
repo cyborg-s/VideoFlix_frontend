@@ -1,4 +1,6 @@
-<section class="footerSection">
+<section [ngClass]="isDashboard ? 'dashboard-footer' : 'footer'" class="footerSection">
+    <div>
     <p class="link" (click)="goToLegalnotice()">Datenschutz</p>
     <p class="link" (click)="goToImprint()">Impressum</p>
-
+</div>
+</section>

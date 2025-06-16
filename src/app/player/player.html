@@ -1,1 +1,7 @@
-<p>player works!</p>
+<div class="video-wrapper" *ngIf="!loading; else loadingTpl">
+  <video class="video" *ngIf="videoUrl" controls [src]="videoUrl"></video>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading">Video wird geladen...</div>
+</ng-template>

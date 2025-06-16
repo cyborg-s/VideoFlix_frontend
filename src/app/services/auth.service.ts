@@ -42,7 +42,6 @@ export class AuthService {
   }
 
   validateToken(token: string, id: string): Observable<{ success: boolean }> {
-    console.log('VT ausgeführt');
     return this.http.post<{ success: boolean }>(
       'http://localhost:8000/api/validate-token/',
       { token, ID: parseInt(id, 10) }
@@ -54,26 +53,23 @@ export class AuthService {
       const token = localStorage.getItem('authToken');
       const id = localStorage.getItem('userId');
 
-      console.log('Token:', token);
-      console.log('ID:', id);
 
       if (!token?.trim() || !id?.trim()) return of(false);
 
       return this.validateToken(token, id).pipe(
-        tap(() => console.log('ValidateToken wurde aufgerufen')),
+
         map((res) => {
           const valid = res.success === true;
-          console.log('Token valid?', valid);
+
           return valid;
         }),
         catchError((err) => {
-          console.error('Fehler beim Token-Check:', err);
+
           return of(false);
         })
       );
     }
 
-    console.log('ende isLoggedIn');
     return of(false);
   }
 

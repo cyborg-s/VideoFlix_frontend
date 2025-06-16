@@ -15,10 +15,11 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .outlet {
-    width: 100vw;
+    width: 100%;
     max-width: 1440px;
   flex: 1;
   display: flex;
@@ -33,5 +34,6 @@ main{
 app-header{
     width: 100%;
     display: flex;
+    z-index: 1;
 }
 

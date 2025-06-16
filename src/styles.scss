@@ -34,6 +34,7 @@ body{
     flex-direction: column;
     align-items: center;
     width: 100%;
+
 }
 
 app-root{
@@ -42,6 +43,7 @@ app-root{
 }
 
 html{
+  width: 100%;
     display: flex;
     justify-content: center;
 }
