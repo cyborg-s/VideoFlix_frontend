@@ -37,10 +37,10 @@ div {
         width: 24px;
       }
       input {
-        background-color: transparent; 
+        background-color: transparent;
         border: none;
         outline: none;
-        color: #d3d3d3; 
+        color: #d3d3d3;
         font-size: 18px;
         font-weight: 400;
         width: 100%;
@@ -68,5 +68,26 @@ div {
       font-weight: 700;
       color: #ffffff;
     }
+    button:disabled {
+      background-color: #ccc; /* hellgrau */
+      color: #666; /* dunkleres Grau für Text */
+      cursor: not-allowed;
+    }
+    .error-message{
+      border: none;
+      background-color: transparent;
+      height: 10px;
+      color: #ff4d4f;
+      margin: -21px;
+      padding: 0;
+      margin-left: -65px;
+    }
   }
+}
+
+
+
+.warning{
+  height: 12px!important;
+  width: auto!important;
 }

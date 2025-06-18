@@ -14,10 +14,20 @@
   <div class="dashboard-content">
     <section class="hero" *ngIf="heroVideo">
       <div class="hero-content">
-        <h1>{{ heroVideo.title }}</h1>
-        <p>{{ heroVideo.description }}</p>
-        <button class="play-button" (click)="onPlayHeroVideo()">▶ Play</button>
-      </div>
+  <h1>{{ heroVideo.title }}</h1>
+  <p>{{ heroVideo.description }}</p>
+
+  <div class="button-group">
+    <button class="play-button" (click)="onPlayHeroVideo(false)">▶ Play</button>
+    <button
+      class="play-button"
+      *ngIf="heroVideo.position_in_seconds && heroVideo.position_in_seconds > 0"
+      (click)="onPlayHeroVideo(true)"
+    >
+       Weiterschauen
+    </button>
+  </div>
+</div>
     </section>
      <div class="content-with-gradient" style="position: relative">
 <div class="right-gradient"></div>

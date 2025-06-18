@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service'; // Pfad ggf. anpassen
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-password-reset',
@@ -18,10 +18,16 @@ export class PasswordReset {
   uid: string = '';
   token: string = '';
 
+  toastMessage = '';
+  showToast = false;
+  passwordError = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +42,12 @@ export class PasswordReset {
   }
 
   resetPw(): void {
-    if (this.password !== this.repeatedPassword || this.password.length < 6) {
-      alert('Passwörter stimmen nicht überein oder sind zu kurz.');
-      return;
-    }
+    this.passwordError = '';
+    if (this.password !== this.repeatedPassword) {
+    this.passwordError = 'Passwords must match.';
+    this.cdr.detectChanges();
+    return;
+  }
 
     const payload = {
       uid: this.uid,
@@ -50,13 +58,29 @@ export class PasswordReset {
 
     this.authService.confirmPasswordReset(payload).subscribe({
       next: () => {
-        alert('Passwort erfolgreich geändert.');
-        this.router.navigate(['/login']);
+        this.showToastMessage('Passwort erfolgreich geändert.');
+        setTimeout(() => this.router.navigate(['/login']), 2000);
       },
       error: (error) => {
         console.error(error);
-        alert(error?.error?.detail || 'Fehler beim Zurücksetzen des Passworts.');
+        const msg = error?.error?.detail || 'Fehler beim Zurücksetzen des Passworts.';
+        this.showToastMessage(msg);
       }
     });
+  }
+
+  showToastMessage(message: string): void {
+    this.ngZone.run(() => {
+      this.toastMessage = message;
+      this.showToast = true;
+      this.cdr.detectChanges();
+
+      
+    });
+  }
+
+  closeToast(){
+    this.showToast = false;
+    this.cdr.detectChanges();
   }
 }

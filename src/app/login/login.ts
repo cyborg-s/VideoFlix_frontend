@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
@@ -17,7 +17,7 @@ export class Login {
   showPassword: boolean = false;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef,) {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -40,6 +40,7 @@ export class Login {
 
           if (typeof error.error === 'object') {
             this.errorMessage = Object.values(error.error).flat().join(' ');
+            this.cdr.detectChanges();
           }
         } else {
           alert('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');

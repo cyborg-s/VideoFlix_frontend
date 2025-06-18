@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // Pfad ggf. anpassen
+import { AuthService } from '../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forgot-pw',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './forgot-pw.html',
-  styleUrl: './forgot-pw.scss'
+  styleUrls: ['./forgot-pw.scss']
 })
 export class ForgotPw {
   email: string = '';
-  password: string = '';
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) {}
+  showToast = false;
+  toastMessage = '';
+
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -24,19 +32,34 @@ export class ForgotPw {
 
   sendEmail(): void {
     if (!this.email || this.email.trim() === '') {
-      alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+      this.showToastMessage('Bitte gib eine gültige E-Mail-Adresse ein.');
       return;
     }
 
     this.authService.requestPasswordReset(this.email).subscribe({
-      next: (response: any) => {
-        alert('Wenn die E-Mail existiert, wurde ein Link zum Zurücksetzen verschickt.');
-        
+      next: () => {
+        this.showToastMessage('Wenn die E-Mail existiert, wurde ein Link zum Zurücksetzen verschickt.');
       },
       error: (error) => {
         console.error('Fehler beim Passwort-Reset Request:', error);
-        alert('Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es später erneut.');
+        this.showToastMessage('Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es später erneut.');
       }
     });
   }
+
+  showToastMessage(message: string): void {
+    this.ngZone.run(() => {
+      this.toastMessage = message;
+      this.showToast = true;
+      this.cdr.detectChanges();
+
+      
+    });
+  }
+
+  closeToast(){
+    this.showToast = false;
+    this.cdr.detectChanges();
+  }
+
 }

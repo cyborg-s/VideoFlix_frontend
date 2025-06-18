@@ -36,35 +36,33 @@ export class Dashboard implements OnInit, AfterViewInit {
 
   @ViewChildren('carousel') carouselsRef!: QueryList<ElementRef>;
 
-ngOnInit(): void {
-  const data = this.route.snapshot.data;
-  const categories = data['categories']?.categories || [];
-  const continueList = data['categories']?.continueWatching || [];
+  ngOnInit(): void {
+    const data = this.route.snapshot.data;
+    const categories = data['categories']?.categories || [];
+    const continueList = data['categories']?.continueWatching || [];
 
-  this.categories = categories;
+    this.categories = categories;
 
-  if (continueList.length > 0) {
-    if (this.categories.length === 0) {
-      this.categories.push({
-        name: 'Weiterschauen',
-        movies: continueList,
-      });
-    } else {
-      this.categories.splice(1, 0, {
-        name: 'Weiterschauen',
-        movies: continueList,
-      });
+    if (continueList.length > 0) {
+      if (this.categories.length === 0) {
+        this.categories.push({
+          name: 'Weiterschauen',
+          movies: continueList,
+        });
+      } else {
+        this.categories.splice(1, 0, {
+          name: 'Weiterschauen',
+          movies: continueList,
+        });
+      }
     }
+
+    const allVideos = this.categories.flatMap((c) => c.movies);
+    const sorted = allVideos.sort((a, b) => b.id - a.id);
+
+    this.heroVideo = sorted[0] || null;
+    this.heroThumbnailLoaded = false;
   }
-
-  const allVideos = this.categories.flatMap((c) => c.movies);
-  const sorted = allVideos.sort((a, b) => b.id - a.id);
-
-  this.heroVideo = sorted[0] || null;
-  this.heroThumbnailLoaded = false;
-}
-
-
 
   ngAfterViewInit(): void {
     this.carouselsRef.changes.subscribe(() => {
@@ -105,38 +103,42 @@ ngOnInit(): void {
     });
   }
 
-onMovieClick(movie: any, event: MouseEvent) {
-  const isMobile = window.innerWidth <= 720;
+  onMovieClick(movie: any, event: MouseEvent) {
+    const isMobile = window.innerWidth <= 720;
 
-  if (isMobile) {
-    this.router.navigate(['/video', movie.id]);
-  } else {
-    this.heroVideo = movie;
-    this.heroThumbnailLoaded = false;
+    if (isMobile) {
+      this.router.navigate(['/video', movie.id]);
+    } else {
+      this.heroVideo = movie;
+      this.heroThumbnailLoaded = false;
+    }
   }
-}
 
   onHeroThumbnailLoad() {
     this.heroThumbnailLoaded = true;
   }
 
-  onPlayHeroVideo() {
-    if (!this.heroVideo || !this.heroVideo.id) {
-      console.warn('Kein Video zum Abspielen ausgewählt');
-      return;
-    }
-    this.router.navigate(['/player', this.heroVideo.id], {
-      queryParams: { position: this.heroVideo.position_in_seconds || 0 }
-    });
+onPlayHeroVideo(resume: boolean) {
+  if (!this.heroVideo || !this.heroVideo.id) {
+    console.warn('Kein Video zum Abspielen ausgewählt');
+    return;
   }
 
-  getHeroStyle() {
-  return {
-    'background-image': `linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0) 50%, #141414 100%), url(${this.heroVideo.img})`,
-    'background-size': 'cover',
-    'background-position': 'center',
-    'background-repeat': 'no-repeat'
-  };
+  const startPosition = resume
+    ? this.heroVideo.position_in_seconds || 0
+    : 0;
+
+  this.router.navigate(['/player', this.heroVideo.id], {
+    queryParams: { position: startPosition },
+  });
 }
 
+  getHeroStyle() {
+    return {
+      'background-image': `linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0) 50%, #141414 100%), url(${this.heroVideo.img})`,
+      'background-size': 'cover',
+      'background-position': 'center',
+      'background-repeat': 'no-repeat',
+    };
+  }
 }

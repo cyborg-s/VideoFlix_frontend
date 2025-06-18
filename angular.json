@@ -25,6 +25,7 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "node_modules/video.js/dist/video-js.css",
               "src/styles.scss"
             ],
             "server": "src/main.server.ts",

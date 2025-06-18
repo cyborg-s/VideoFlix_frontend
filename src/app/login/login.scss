@@ -74,6 +74,15 @@ div {
             cursor: pointer;
         }
     }
+    .error-message{
+      border: none;
+      background-color: transparent;
+      height: 10px;
+      color: #ff4d4f;
+      margin: -21px;
+      padding: 0;
+      margin-left: -65px;
+    }
   }
 }
 

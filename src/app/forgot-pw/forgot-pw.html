@@ -1,11 +1,23 @@
+
+
+<article *ngIf="showToast" class="toast">
+    <article class="error"></article>
+    <main>
+    <img src="../../assets/img/ExclamationCircleFill.svg" alt="">
+  <p>{{ toastMessage }}</p>
+  <aside><img (click)="closeToast()" src="../../assets/img/close_small.svg" alt=""></aside>
+  </main>
+</article>
+
+
 <div>
   <h1>Forgot your password?</h1>
   <p>We will send you an email with instructions to reset your password.</p>
-  <form (submit)="sendEmail()">
+  <form (submit)="sendEmail(); $event.preventDefault()">
     <div>
       <img src="../../assets/img/mail.svg" alt="" />
       <input [(ngModel)]="email" id="email" name="email" type="text" placeholder="Email Address" />
     </div>
-    <button type="submit" >Send Email</button>
+    <button type="submit">Send Email</button>
   </form>
 </div>
