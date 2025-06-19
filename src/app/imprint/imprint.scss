@@ -1,5 +1,29 @@
-*{
+div{
     color: #FFFFFF;
     margin-inline: 96px;
     max-width: 1440px;
+}
+
+a{
+    color: #FFFFFF;
+}
+
+h1{
+    font-size: 32px;
+}
+p{
+    font-size:16px;
+}
+
+
+@media(max-width: 560px){
+    div{
+        margin-inline: 16px;
+    }
+    h1{
+        font-size: 24px;
+    }
+    h2{
+        font-size: 20px;
+    }
 }

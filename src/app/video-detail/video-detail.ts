@@ -33,10 +33,11 @@ export class VideoDetailComponent implements OnInit {
 
   getHeroStyle() {
     return {
-      'background-image': `linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0) 50%, #141414 100%), url(${this.video?.thumbnail})`,
+      'background-image': `linear-gradient(180deg, rgba(20, 20, 20, 0.6) 0%, rgba(20, 20, 20, 0) 50%, #141414 100%), url(${this.video?.thumbnail})`,
       'background-size': 'cover',
       'background-position': 'center',
       'background-repeat': 'no-repeat'
     };
   }
 }
+

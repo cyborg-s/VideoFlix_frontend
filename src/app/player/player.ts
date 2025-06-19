@@ -260,7 +260,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.location.back();
-    console.log("back");
   }
 
   getResolutionLabel(): string {

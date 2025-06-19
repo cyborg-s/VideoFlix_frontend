@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { AuthService } from '../services/auth.service'; // Pfad ggf. anpassen
+import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,44 @@ import { AuthService } from '../services/auth.service'; // Pfad ggf. anpassen
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
-export class Login {
+export class Login implements OnInit {
   email: string = '';
   password: string = '';
   showPassword: boolean = false;
   errorMessage: string = '';
+  showToast: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef,) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const uidb64 = params['uidb64'];
+      const token = params['token'];
+
+      if (uidb64 && token) {
+        const url = `http://localhost:8000/api/activate/${uidb64}/${token}/`;
+        this.http.get(url).subscribe({
+          next: () => {
+            this.showToast = true;
+            this.cdr.detectChanges();
+            setTimeout(() => {
+              this.showToast = false;
+              this.cdr.detectChanges();
+            }, 3000);
+          },
+          error: (error) => {
+            console.error('Aktivierung fehlgeschlagen:', error);
+          }
+        });
+      }
+    });
+  }
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;

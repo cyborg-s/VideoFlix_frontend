@@ -84,7 +84,6 @@ input:-webkit-autofill {
 
 .toast {
   display: flex!important;
-  justify-content: space-between;
   position: fixed;
   align-items: center;
   bottom: 20px;
@@ -98,6 +97,12 @@ input:-webkit-autofill {
   background-color: #2E3EDF!important;
   height: 80px;
   width: 540px;
+  main{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
   button{
     width: 108px;
     height: 48px;
