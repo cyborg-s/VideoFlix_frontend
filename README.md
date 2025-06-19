@@ -1,59 +1,108 @@
-# VideoflixFrontend
+# 🎬 VideoFlix Frontend (Angular 20)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
+Willkommen beim **VideoFlix**-Frontend – einer Angular 20 Single Page Application, die zusammen mit dem [VideoFlix Backend (Django/DRF)](https://github.com/cyborg-s/videoflix-backend) eine vollständige Netflix-ähnliche Plattform bildet.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📦 Projektübersicht
 
+- ✅ Angular 20 mit Standalone-Komponenten
+- 🔐 Authentifizierung mit Token & Guards
+- 🎞️ Videowiedergabe mit Video.js
+- 🧠 Resolvers, Lazy Loading, Routing
+- ⚙️ Kommunikation via REST API mit Django Backend
+
+---
+
+## 🚀 Schnellstart
+
+### 1. Repository klonen
+
+```bash
+git clone https://github.com/cyborg-s/VideoFlix_frontend.git
+cd videoflix-frontend
+```
+---
+
+### 2. Abhängigkeiten installieren
+```bash
+npm install
+```
+---
+
+### 3. Backend starten
+Falls du das Backend noch nicht gestartet hast, folge der Anleitung im Backend-Repository oder:
+
+```bash
+git clone https://github.com/cyborg-s/VideoFlix_backend.git
+cd videoflix-backend
+docker-compose up --build
+```
+Backend sollte unter http://localhost:8000 laufen.
+
+---
+
+### 4. Frontend starten
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+### 🔐 Authentifizierung
+Das Frontend nutzt Token-basierte Authentifizierung:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Bei erfolgreichem Login wird das Token im localStorage gespeichert.
 
-```bash
-ng generate component component-name
-```
+AuthGuard schützt geschützte Routen (z. B. /dashboard, /player/:id)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+GuestGuard verhindert Zugriff auf Login/Signup, wenn bereits eingeloggt.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+### 📁 Projektstruktur (Frontend)
+<code><pre>
+videoflix-frontend/
+├── src/
+│   ├── app/
+│   │   ├── startpage/
+│   │   ├── login/
+│   │   ├── sign-up/
+│   │   ├── dashboard/
+│   │   ├── video-detail/
+│   │   ├── player/
+│   │   ├── forgot-pw/
+│   │   ├── password-reset/
+│   │   ├── guards/
+│   │   ├── services/
+│   │   └── models/
+│   └── environments/
+│       ├── environment.ts
+│       └── environment.prod.ts
+├── angular.json
+├── package.json
+└── README.md
+</code></pre>
 
-To build the project run:
+---
+### 🧰 Tools & Technologien
+Angular 20
 
-```bash
-ng build
-```
+Angular Router
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+RxJS & Observables
 
-## Running unit tests
+Video.js
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+SCSS
 
-```bash
-ng test
-```
+Django REST Framework (Backend)
 
-## Running end-to-end tests
+Docker (Backend)
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+### 10. 🙋‍♂️ Autor
+Sascha Nyßen
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Dieses Projekt ist ein Teil eines persönlichen Fullstack-Projekts zum Thema Videostreaming.
