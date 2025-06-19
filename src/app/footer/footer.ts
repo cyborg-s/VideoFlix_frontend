@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { isPlatformBrowser, CommonModule } from '@angular/common'; 
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
 @Component({

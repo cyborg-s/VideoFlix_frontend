@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [FormsModule, NgIf],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
 })
 export class Login implements OnInit {
   email: string = '';
@@ -28,7 +28,7 @@ export class Login implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const uidb64 = params['uidb64'];
       const token = params['token'];
 
@@ -45,7 +45,7 @@ export class Login implements OnInit {
           },
           error: (error) => {
             console.error('Aktivierung fehlgeschlagen:', error);
-          }
+          },
         });
       }
     });
@@ -66,9 +66,10 @@ export class Login implements OnInit {
       },
       error: (error) => {
         if (error.status === 400) {
-          this.errorMessage = typeof error.error === 'string'
-            ? error.error
-            : JSON.stringify(error.error);
+          this.errorMessage =
+            typeof error.error === 'string'
+              ? error.error
+              : JSON.stringify(error.error);
 
           if (typeof error.error === 'object') {
             this.errorMessage = Object.values(error.error).flat().join(' ');
@@ -77,7 +78,7 @@ export class Login implements OnInit {
         } else {
           alert('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
         }
-      }
+      },
     });
   }
 

@@ -2,16 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-
 import { Header } from './header/header';
 import { Footer } from './footer/footer';
-import { HttpClientModule } from '@angular/common/http';
 import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Footer, Header, CommonModule, HttpClientModule],
+  imports: [RouterOutlet, Footer, Header, CommonModule],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
@@ -28,7 +26,6 @@ export class App {
         .subscribe((event: NavigationEnd) => {
           const url = event.urlAfterRedirects;
 
-          // Setze die Hintergrund-Klasse
           document.body.className = '';
 
           if (url === '/' || url === '') {
@@ -45,7 +42,6 @@ export class App {
             document.body.classList.add('background');
           }
 
-          // Dashboard-Check (nur auf "/dashboard", nicht z. B. "/dashboard/irgendwas")
           this.isDashboardRoute = url === '/dashboard';
         });
     }

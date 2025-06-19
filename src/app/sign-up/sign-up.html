@@ -1,27 +1,38 @@
-<div class="signup-container"> 
+<div class="signup-container">
   <h1>SignUp</h1>
 
   <article *ngIf="showErrorToast" class="toast">
     <article class="error"></article>
     <main>
-    <img src="../../assets/img/ExclamationCircleFill.svg" alt="">
-  <p>{{ errorMessage }}</p>
-  <aside><img (click)="closeToast()" src="../../assets/img/close_small.svg" alt=""></aside>
-  </main>
-</article>
+      <img src="../../assets/img/ExclamationCircleFill.svg" alt="" />
+      <p>{{ errorMessage }}</p>
+      <aside>
+        <img
+          (click)="closeToast()"
+          src="../../assets/img/close_small.svg"
+          alt=""
+        />
+      </aside>
+    </main>
+  </article>
 
-<article *ngIf="showSuccessToast" class="toast toastSuccess">
+  <article *ngIf="showSuccessToast" class="toast toastSuccess">
     <article class="error"></article>
     <main>
-    <img src="../../assets/img/ExclamationCircleFill.svg" alt="">
-  <p>{{ successMessage }}</p>
-  <button (click)="onSuccessToastOk()">OK</button>
-  <aside><img (click)="closeToast()" src="../../assets/img/close_small.svg" alt=""></aside>
-  </main>
-</article>
+      <img src="../../assets/img/ExclamationCircleFill.svg" alt="" />
+      <p>{{ successMessage }}</p>
+      <button (click)="onSuccessToastOk()">OK</button>
+      <aside>
+        <img
+          (click)="closeToast()"
+          src="../../assets/img/close_small.svg"
+          alt=""
+        />
+      </aside>
+    </main>
+  </article>
 
   <form (ngSubmit)="signUp()" #signupForm="ngForm">
-    
     <div class="input-group">
       <img src="../../assets/img/mail.svg" alt="email icon" />
       <input
@@ -49,10 +60,6 @@
         class="toggle-icon"
       />
     </div>
-
-    <!-- Fehlermeldung zwischen den Passwort-Feldern -->
-    
-
     <div class="input-group">
       <img src="../../assets/img/password.svg" alt="password icon" />
       <input
@@ -70,11 +77,12 @@
       />
     </div>
     <div class="error-message" *ngIf="passwordError">
-      <img class="warning" src="../../assets/img/warning.svg" alt="">
-  {{ passwordError }}
-</div>
+      <img class="warning" src="../../assets/img/warning.svg" alt="" />
+      {{ passwordError }}
+    </div>
 
-    <button type="submit" [disabled]="!email || !password || !repeatedPassword">Get Started</button>
-  
+    <button type="submit" [disabled]="!email || !password || !repeatedPassword">
+      Get Started
+    </button>
   </form>
 </div>

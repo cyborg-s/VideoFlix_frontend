@@ -57,7 +57,6 @@ export class VolumeUpButton extends Button {
   }
 }
 
-// NEU: CustomPlaybackRateButton ersetzt den Original-Text durch ein Icon
 export class CustomPlaybackRateButton extends videojs.getComponent(
   'PlaybackRateMenuButton'
 ) {
@@ -67,7 +66,6 @@ export class CustomPlaybackRateButton extends videojs.getComponent(
     const icon = document.createElement('span');
     icon.className = 'vjs-custom-playback-icon';
 
-    // Ersetze den Original-Text im Button
     const content = el.querySelector('.vjs-playback-rate-value');
     if (content) {
       content.replaceWith(icon);
@@ -77,7 +75,6 @@ export class CustomPlaybackRateButton extends videojs.getComponent(
   }
 }
 
-// NEU: QualityMenuButton mit Menü zur Auswahl der Auflösung
 export class QualityMenuButton extends MenuButton {
   override options_: any;
   menu?: any;
@@ -147,20 +144,17 @@ export class QualityMenuButton extends MenuButton {
     this.menu = new Menu(this.player(), {});
     this.addChild(this.menu);
 
-      const menuEl = this.menu.el();
-  if (menuEl && menuEl.parentElement) {
-    menuEl.parentElement.classList.add('my-menu-wrapper');
-  }
-    // Clear any existing children in the menu
+    const menuEl = this.menu.el();
+    if (menuEl && menuEl.parentElement) {
+      menuEl.parentElement.classList.add('my-menu-wrapper');
+    }
     while (this.menu.children().length) {
       this.menu.removeChild(this.menu.children()[0]);
     }
 
-    // Add your items
     const items = this.createItems();
     items.forEach((item: any) => this.menu.addChild(item));
 
-    // Füge das Menü als Kind des Buttons hinzu
     this.addChild(this.menu);
 
     return this.menu;
@@ -177,30 +171,28 @@ export class QualityMenuButton extends MenuButton {
   }
 }
 
-
 export class TitleDisplay extends Component {
   private title: string;
 
   constructor(player: Player, options: any) {
-  super(player, options);
-  this.title = options.title || '';
-  this.updateTitle(this.title);
-}
+    super(player, options);
+    this.title = options.title || '';
+    this.updateTitle(this.title);
+  }
 
   override createEl() {
-  return videojs.dom.createEl('div', {
-    className: 'vjs-title-display vjs-control',
-  });
-}
+    return videojs.dom.createEl('div', {
+      className: 'vjs-title-display vjs-control',
+    });
+  }
 
   updateTitle(newTitle: string) {
-  this.title = newTitle;
-  if (this.el()) {
-    this.el().innerHTML = this.title;
+    this.title = newTitle;
+    if (this.el()) {
+      this.el().innerHTML = this.title;
+    }
   }
 }
-}
-
 
 export class CenteredControls extends Component {
   private hideTimeout?: number;
@@ -212,7 +204,9 @@ export class CenteredControls extends Component {
     this.addClass('vjs-centered-controls');
     this.hide();
 
-    this.headerEl = document.querySelector('.vjs-header-controls') as HTMLElement;
+    this.headerEl = document.querySelector(
+      '.vjs-header-controls'
+    ) as HTMLElement;
     if (this.headerEl) {
       this.headerEl.style.opacity = '0';
       this.headerEl.style.transition = 'opacity 0.3s ease';
@@ -220,17 +214,17 @@ export class CenteredControls extends Component {
 
     const backBtn = videojs.dom.createEl('button', {
       className: 'vjs-center-back-button',
-      innerHTML: ''
+      innerHTML: '',
     }) as HTMLButtonElement;
 
     this.playPauseBtn = videojs.dom.createEl('button', {
       className: 'vjs-center-play-button',
-      innerHTML: ''
+      innerHTML: '',
     }) as HTMLButtonElement;
 
     const forwardBtn = videojs.dom.createEl('button', {
       className: 'vjs-center-forward-button',
-      innerHTML: ''
+      innerHTML: '',
     }) as HTMLButtonElement;
 
     this.playPauseBtn.onclick = () => {
@@ -298,18 +292,15 @@ export class CenteredControls extends Component {
     }
   }
 
-  // ✅ WICHTIG: Ressourcen aufräumen
   override dispose() {
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
       this.hideTimeout = undefined;
     }
 
-    // Optional: EventListener entfernen (falls mit `on()` gebunden)
     this.player().off('touchstart', this.showTemporarily);
     this.player().off('mousemove', this.showTemporarily);
 
-    // Am Ende den Super-Dispose aufrufen!
     super.dispose();
   }
 }

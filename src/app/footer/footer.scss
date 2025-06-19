@@ -47,15 +47,14 @@
   }
 }
 
-/* Mobile überschreibt Desktop-Stil */
 @media (max-width: 720px) {
   .dashboard-footer {
     position: unset !important;
     width: 100% !important;
     text-align: center !important;
     padding: 0;
-    div{
-        justify-content: center;
+    div {
+      justify-content: center;
     }
   }
 }

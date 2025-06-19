@@ -5,7 +5,7 @@ import {
   ElementRef,
   ViewChild,
   ChangeDetectorRef,
-  NgZone
+  NgZone,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -14,9 +14,15 @@ import videojs from 'video.js';
 import { Subscription, interval } from 'rxjs';
 import { VideoService } from '../services/video.service';
 import type Player from 'video.js/dist/types/player';
-
-// Importiere deine Custom Buttons
-import { Forward10Button, VolumeUpButton, Backward10Button, CustomPlaybackRateButton, QualityMenuButton, CenteredControls, TitleDisplay } from './custom.button';
+import {
+  Forward10Button,
+  VolumeUpButton,
+  Backward10Button,
+  CustomPlaybackRateButton,
+  QualityMenuButton,
+  CenteredControls,
+  TitleDisplay,
+} from './custom.button';
 
 videojs.registerComponent('Forward10Button', Forward10Button);
 videojs.registerComponent('Backward10Button', Backward10Button);
@@ -58,7 +64,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   titleWithResolution: string = '';
   title: string = '';
 
-  // Event-Handler als Klassenmethoden, damit wir sie wieder entfernen können
   private resizeHandler = () => this.toggleFullscreenOnLandscape();
   private orientationChangeHandler = () => this.toggleFullscreenOnLandscape();
 
@@ -69,12 +74,10 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
         this.goBack();
       });
     }
-
-
   }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
+    this.routeSub = this.route.params.subscribe((params) => {
       this.videoId = +params['id'];
       this.loadVideo();
     });
@@ -87,12 +90,15 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       this.player.dispose();
     }
     window.removeEventListener('resize', this.resizeHandler);
-    window.removeEventListener('orientationchange', this.orientationChangeHandler);
+    window.removeEventListener(
+      'orientationchange',
+      this.orientationChangeHandler
+    );
   }
 
   private loadVideo() {
     this.loading = true;
-    this.videoService.getVideoById(this.videoId).subscribe(video => {
+    this.videoService.getVideoById(this.videoId).subscribe((video) => {
       this.video = video;
       this.videoTitle = video.title || '';
 
@@ -106,14 +112,15 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       }, 3000);
 
       setTimeout(() => {
-  const urlPosition = this.route.snapshot.queryParamMap.get('position');
-  const startPosition = urlPosition !== null ? +urlPosition : (video.last_position || 0);
+        const urlPosition = this.route.snapshot.queryParamMap.get('position');
+        const startPosition =
+          urlPosition !== null ? +urlPosition : video.last_position || 0;
 
-  this.initPlayer(startPosition);
-  this.startProgressTracking();
-  this.loading = false;
-  this.cdr.detectChanges();
-}, 200);
+        this.initPlayer(startPosition);
+        this.startProgressTracking();
+        this.loading = false;
+        this.cdr.detectChanges();
+      }, 200);
     });
   }
 
@@ -144,7 +151,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     this.player = videojs(this.target.nativeElement, {
       controls: true,
-      
+
       preload: 'auto',
       fluid: true,
       pip: false,
@@ -160,47 +167,57 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       ],
     });
 
-    
-
     this.player.ready(() => {
       this.player.currentTime(startAt);
-      
 
       const controlBar = this.player.getChild('controlBar');
       if (controlBar) {
-        // Entferne nur benutzerdefinierte Buttons (nicht den Standard PlayButton!)
-        ['PlaybackRateMenuButton', 'CustomPlaybackRateButton', 'Backward10Button', 'Forward10Button'].forEach(name => {
+        [
+          'PlaybackRateMenuButton',
+          'CustomPlaybackRateButton',
+          'Backward10Button',
+          'Forward10Button',
+        ].forEach((name) => {
           const oldBtn = controlBar.getChild(name);
           if (oldBtn) controlBar.removeChild(oldBtn);
         });
 
         controlBar.addChild('Backward10Button', {}, 1);
         controlBar.addChild('Forward10Button', {}, 2);
-        this.player.addChild('CenteredControls', {}, this.player.children().length);
+        this.player.addChild(
+          'CenteredControls',
+          {},
+          this.player.children().length
+        );
 
-        controlBar.addChild('QualityMenuButton', {
-          qualities: [
-            { label: '1080p', url: this.video.video_1080p },
-            { label: '720p', url: this.video.video_720p },
-            { label: '360p', url: this.video.video_360p },
-            { label: '180p', url: this.video.video_180p },
-          ],
-          currentResolution: this.getResolutionLabel(),
-          onChange: (quality: { label: string; url: string }) => {
-            this.changeQuality(quality.url, quality.label);
+        controlBar.addChild(
+          'QualityMenuButton',
+          {
+            qualities: [
+              { label: '1080p', url: this.video.video_1080p },
+              { label: '720p', url: this.video.video_720p },
+              { label: '360p', url: this.video.video_360p },
+              { label: '180p', url: this.video.video_180p },
+            ],
+            currentResolution: this.getResolutionLabel(),
+            onChange: (quality: { label: string; url: string }) => {
+              this.changeQuality(quality.url, quality.label);
+            },
           },
-        }, controlBar.children().length - 3);
+          controlBar.children().length - 3
+        );
 
-        controlBar.addChild('CustomPlaybackRateButton', {}, controlBar.children().length - 1);
-
-        // Titelanzeige
+        controlBar.addChild(
+          'CustomPlaybackRateButton',
+          {},
+          controlBar.children().length - 1
+        );
         controlBar.addChild('TitleDisplay', { title: this.video.title }, 6);
       }
 
       this.player.playbackRate(1.0);
     });
   }
-
 
   toastMessage = '';
   showToastVisible = false;
@@ -243,7 +260,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.showToast(`Qualität geändert auf ${label}`);
   }
 
-
   private startProgressTracking() {
     if (this.progressInterval) {
       this.progressInterval.unsubscribe();
@@ -284,49 +300,48 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     return isMobile && isLandscape;
   }
 
- private toggleFullscreenOnLandscape() {
-  if (!this.target) return;
-  const videoEl: HTMLElement = this.target.nativeElement;
+  private toggleFullscreenOnLandscape() {
+    if (!this.target) return;
+    const videoEl: HTMLElement = this.target.nativeElement;
 
-  const controlBar = videoEl.querySelector('.vjs-control-bar') as HTMLElement;
+    const controlBar = videoEl.querySelector('.vjs-control-bar') as HTMLElement;
 
-  if (this.isMobileLandscape()) {
-    videoEl.style.position = 'fixed';
-    videoEl.style.top = '0';
-    videoEl.style.left = '0';
-    videoEl.style.width = '100vw';
-    videoEl.style.height = '100vh';
-    videoEl.style.zIndex = '9999';
-    videoEl.style.pointerEvents = 'auto'; // 👉 HIER setzen
+    if (this.isMobileLandscape()) {
+      videoEl.style.position = 'fixed';
+      videoEl.style.top = '0';
+      videoEl.style.left = '0';
+      videoEl.style.width = '100vw';
+      videoEl.style.height = '100vh';
+      videoEl.style.zIndex = '9999';
+      videoEl.style.pointerEvents = 'auto';
 
-    if (controlBar) {
-      controlBar.style.position = 'absolute';
-      controlBar.style.bottom = '0';
-      controlBar.style.left = '0';
-      controlBar.style.width = '100%';
-      controlBar.style.zIndex = '10000';
-      controlBar.style.background = 'rgba(0, 0, 0, 0.5)';
-      controlBar.style.pointerEvents = 'auto'; // 👉 UND HIER
-    }
-  } else {
-    videoEl.style.position = '';
-    videoEl.style.top = '';
-    videoEl.style.left = '';
-    videoEl.style.width = '';
-    videoEl.style.height = '';
-    videoEl.style.zIndex = '';
-    videoEl.style.pointerEvents = ''; // 👉 zurücksetzen
+      if (controlBar) {
+        controlBar.style.position = 'absolute';
+        controlBar.style.bottom = '0';
+        controlBar.style.left = '0';
+        controlBar.style.width = '100%';
+        controlBar.style.zIndex = '10000';
+        controlBar.style.background = 'rgba(0, 0, 0, 0.5)';
+        controlBar.style.pointerEvents = 'auto';
+      }
+    } else {
+      videoEl.style.position = '';
+      videoEl.style.top = '';
+      videoEl.style.left = '';
+      videoEl.style.width = '';
+      videoEl.style.height = '';
+      videoEl.style.zIndex = '';
+      videoEl.style.pointerEvents = '';
 
-    if (controlBar) {
-      controlBar.style.position = '';
-      controlBar.style.bottom = '';
-      controlBar.style.left = '';
-      controlBar.style.width = '';
-      controlBar.style.zIndex = '';
-      controlBar.style.background = '';
-      controlBar.style.pointerEvents = ''; // 👉 zurücksetzen
+      if (controlBar) {
+        controlBar.style.position = '';
+        controlBar.style.bottom = '';
+        controlBar.style.left = '';
+        controlBar.style.width = '';
+        controlBar.style.zIndex = '';
+        controlBar.style.background = '';
+        controlBar.style.pointerEvents = '';
+      }
     }
   }
-}
-
 }

@@ -1,15 +1,15 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { isPlatformBrowser, CommonModule } from '@angular/common';  // CommonModule importieren
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
-  standalone: true,  // wichtig für standalone components
-  imports: [CommonModule],  // Hier das CommonModule einfügen
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './header.html',
-  styleUrls: ['./header.scss']
+  styleUrls: ['./header.scss'],
 })
 export class Header implements OnInit {
   isLoggedIn = false;
@@ -28,12 +28,12 @@ export class Header implements OnInit {
     this.checkLoginStatus();
     this.currentUrl = this.router.url;
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.currentUrl = event.urlAfterRedirects;
-      this.checkLoginStatus();
-    });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl = event.urlAfterRedirects;
+        this.checkLoginStatus();
+      });
   }
 
   checkLoginStatus() {

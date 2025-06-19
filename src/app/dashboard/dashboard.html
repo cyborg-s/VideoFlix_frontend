@@ -1,63 +1,62 @@
-<!-- Nur anzeigen, wenn Daten da sind -->
 <ng-container *ngIf="categories.length">
-
   <img
+    [src]="heroVideo.thumbnail"
+    (load)="onHeroThumbnailLoad()"
+    style="display: none"
+  />
 
-  [src]="heroVideo.thumbnail"
-  (load)="onHeroThumbnailLoad()"
-  style="display: none"
-/>
-
-<div class="hero-background" [ngStyle]="getHeroStyle()"></div>
-
+  <div class="hero-background" [ngStyle]="getHeroStyle()"></div>
 
   <div class="dashboard-content">
     <section class="hero" *ngIf="heroVideo">
       <div class="hero-content">
-  <h1>{{ heroVideo.title }}</h1>
-  <p>{{ heroVideo.description }}</p>
+        <h1>{{ heroVideo.title }}</h1>
+        <p>{{ heroVideo.description }}</p>
 
-  <div class="button-group">
-    <button class="play-button" (click)="onPlayHeroVideo(false)">▶ Play</button>
-    <button
-      class="play-button"
-      *ngIf="heroVideo.position_in_seconds && heroVideo.position_in_seconds > 0"
-      (click)="onPlayHeroVideo(true)"
-    >
-       Weiterschauen
-    </button>
-  </div>
-</div>
-    </section>
-     <div class="content-with-gradient" style="position: relative">
-<div class="right-gradient"></div>
-    <section class="category first-category">
-      <h2>{{ categories[0].name }}</h2>
-      <div class="carousel" #carousel>
-        <img *ngFor="let movie of categories[0].movies"
-             [src]="movie.img"
-             [alt]="movie.title"
-             draggable="false"
-             (click)="onMovieClick(movie, $event)" />
+        <div class="button-group">
+          <button class="play-button" (click)="onPlayHeroVideo(false)">
+            ▶ Play
+          </button>
+          <button
+            class="play-button"
+            *ngIf="heroVideo.position_in_seconds && heroVideo.position_in_seconds > 0"
+            (click)="onPlayHeroVideo(true)"
+          >
+            Weiterschauen
+          </button>
+        </div>
       </div>
     </section>
+    <div class="content-with-gradient" style="position: relative">
+      <div class="right-gradient"></div>
+      <section class="category first-category">
+        <h2>{{ categories[0].name }}</h2>
+        <div class="carousel" #carousel>
+          <img
+            *ngFor="let movie of categories[0].movies"
+            [src]="movie.img"
+            [alt]="movie.title"
+            draggable="false"
+            (click)="onMovieClick(movie, $event)"
+          />
+        </div>
+      </section>
 
-    <!-- Weitere Kategorien -->
-    <section class="category"
-             *ngFor="let category of categories.slice(1); let i = index">
-      <h2>{{ category.name }}</h2>
-      <div class="carousel" #carousel [attr.data-index]="i">
-        <img *ngFor="let movie of category.movies"
-             [src]="movie.img"
-             [alt]="movie.title"
-             draggable="false"
-             (click)="onMovieClick(movie, $event)" />
-      </div>
-    </section>
+      <section
+        class="category"
+        *ngFor="let category of categories.slice(1); let i = index"
+      >
+        <h2>{{ category.name }}</h2>
+        <div class="carousel" #carousel [attr.data-index]="i">
+          <img
+            *ngFor="let movie of category.movies"
+            [src]="movie.img"
+            [alt]="movie.title"
+            draggable="false"
+            (click)="onMovieClick(movie, $event)"
+          />
+        </div>
+      </section>
+    </div>
   </div>
-</div>
-
-
-
-
 </ng-container>

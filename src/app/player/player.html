@@ -1,23 +1,29 @@
-<div class="video-wrapper" style="position: relative;">
-  <div class="title">
-  {{ titleWithResolution }}
-</div>
+<div class="video-wrapper" style="position: relative">
+  <div class="title">{{ titleWithResolution }}</div>
   <div class="video-header desktop">
-    <img class="back-button" (click)="goBack()" src="/assets/img/arrow_back.svg" alt="">
-
-   
+    <img
+      class="back-button"
+      (click)="goBack()"
+      src="/assets/img/arrow_back.svg"
+      alt=""
+    />
 
     <div class="logo-container">
       <img src="assets/img/Capa_1.svg" alt="Logo" />
     </div>
   </div>
-  <div class="video-header-mobile  vjs-header-controls mobile">
-  <div class="logo-container">
-    <img src="/assets/img/Capa_1.svg" alt="Logo" />
+  <div class="video-header-mobile vjs-header-controls mobile">
+    <div class="logo-container">
+      <img src="/assets/img/Capa_1.svg" alt="Logo" />
+    </div>
+    <div class="video-title">{{ title }}</div>
+    <img
+      class="back-button"
+      (click)="goBack()"
+      src="/assets/img/arrow_back.svg"
+      alt=""
+    />
   </div>
-  <div class="video-title">{{ title }}</div>
-  <img class="back-button" (click)="goBack()" src="/assets/img/arrow_back.svg" alt="">
-</div>
 
   <video
     #target
@@ -26,15 +32,12 @@
     controls
     preload="auto"
   ></video>
-
 </div>
 
-
 <article *ngIf="showToastVisible" class="toast">
-    <article class="error"></article>
-    <img src="../../assets/img/ExclamationCircleFill.svg" alt="">
+  <article class="error"></article>
+  <img src="../../assets/img/ExclamationCircleFill.svg" alt="" />
   <p>{{ toastMessage }}</p>
-  
 </article>
 <ng-template #loadingTpl>
   <div class="loading">Video wird geladen...</div>

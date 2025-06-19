@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './password-reset.html',
-  styleUrls: ['./password-reset.scss']
+  styleUrls: ['./password-reset.scss'],
 })
 export class PasswordReset {
   password: string = '';
@@ -31,7 +31,7 @@ export class PasswordReset {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.uid = params['uid'];
       this.token = params['token'];
     });
@@ -44,16 +44,16 @@ export class PasswordReset {
   resetPw(): void {
     this.passwordError = '';
     if (this.password !== this.repeatedPassword) {
-    this.passwordError = 'Passwords must match.';
-    this.cdr.detectChanges();
-    return;
-  }
+      this.passwordError = 'Passwords must match.';
+      this.cdr.detectChanges();
+      return;
+    }
 
     const payload = {
       uid: this.uid,
       token: this.token,
       new_password: this.password,
-      new_password_confirm: this.repeatedPassword
+      new_password_confirm: this.repeatedPassword,
     };
 
     this.authService.confirmPasswordReset(payload).subscribe({
@@ -63,9 +63,10 @@ export class PasswordReset {
       },
       error: (error) => {
         console.error(error);
-        const msg = error?.error?.detail || 'Fehler beim Zurücksetzen des Passworts.';
+        const msg =
+          error?.error?.detail || 'Fehler beim Zurücksetzen des Passworts.';
         this.showToastMessage(msg);
-      }
+      },
     });
   }
 
@@ -74,12 +75,10 @@ export class PasswordReset {
       this.toastMessage = message;
       this.showToast = true;
       this.cdr.detectChanges();
-
-      
     });
   }
 
-  closeToast(){
+  closeToast() {
     this.showToast = false;
     this.cdr.detectChanges();
   }

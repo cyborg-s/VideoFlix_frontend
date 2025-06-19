@@ -7,16 +7,14 @@ import {
   QueryList,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { VideoService } from '../services/video.service';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
 })
@@ -118,20 +116,18 @@ export class Dashboard implements OnInit, AfterViewInit {
     this.heroThumbnailLoaded = true;
   }
 
-onPlayHeroVideo(resume: boolean) {
-  if (!this.heroVideo || !this.heroVideo.id) {
-    console.warn('Kein Video zum Abspielen ausgewählt');
-    return;
+  onPlayHeroVideo(resume: boolean) {
+    if (!this.heroVideo || !this.heroVideo.id) {
+      console.warn('Kein Video zum Abspielen ausgewählt');
+      return;
+    }
+
+    const startPosition = resume ? this.heroVideo.position_in_seconds || 0 : 0;
+
+    this.router.navigate(['/player', this.heroVideo.id], {
+      queryParams: { position: startPosition },
+    });
   }
-
-  const startPosition = resume
-    ? this.heroVideo.position_in_seconds || 0
-    : 0;
-
-  this.router.navigate(['/player', this.heroVideo.id], {
-    queryParams: { position: startPosition },
-  });
-}
 
   getHeroStyle() {
     return {

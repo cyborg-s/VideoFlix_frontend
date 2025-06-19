@@ -1,7 +1,7 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -53,18 +53,15 @@ export class AuthService {
       const token = localStorage.getItem('authToken');
       const id = localStorage.getItem('userId');
 
-
       if (!token?.trim() || !id?.trim()) return of(false);
 
       return this.validateToken(token, id).pipe(
-
         map((res) => {
           const valid = res.success === true;
 
           return valid;
         }),
         catchError((err) => {
-
           return of(false);
         })
       );
@@ -88,6 +85,4 @@ export class AuthService {
       password,
     });
   }
-
-
 }

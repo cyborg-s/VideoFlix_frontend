@@ -1,4 +1,3 @@
-// src/app/services/video.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -24,7 +23,7 @@ export class VideoService {
         const newOnVideoflix = {
           name: 'New on Videoflix',
           movies: sortedVideos.slice(0, 10).map((video) => ({
-            id: video.id, // <--- HIER ergänzt
+            id: video.id,
             title: video.title,
             img: video.thumbnail,
             description: video.description,
@@ -35,7 +34,7 @@ export class VideoService {
         for (const video of videos) {
           if (!grouped[video.genre]) grouped[video.genre] = [];
           grouped[video.genre].push({
-            id: video.id, // <--- HIER ergänzt
+            id: video.id,
             title: video.title,
             img: video.thumbnail,
             description: video.description,
@@ -55,18 +54,17 @@ export class VideoService {
   }
 
   getVideoById(id: number): Observable<any> {
-  return this.http.get(`${this.apiUrl}video/${id}/`);
-}
+    return this.http.get(`${this.apiUrl}video/${id}/`);
+  }
 
-getContinueWatching(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}video/continue/`);
-}
+  getContinueWatching(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}video/continue/`);
+  }
 
-saveProgress(videoId: number, position: number): Observable<any> {
-  return this.http.post(`${this.apiUrl}video/progress/`, {
-    "video_id": videoId,
-    "position_in_seconds": position
-  });
-}
-
+  saveProgress(videoId: number, position: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}video/progress/`, {
+      video_id: videoId,
+      position_in_seconds: position,
+    });
+  }
 }

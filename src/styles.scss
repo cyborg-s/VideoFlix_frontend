@@ -1,122 +1,129 @@
-
 /* dm-sans-regular - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
+  font-display: swap; 
+  font-family: "DM Sans";
   font-style: normal;
   font-weight: 400;
-  src: url('./assets/fonts/dm-sans-v16-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./assets/fonts/dm-sans-v16-latin-regular.woff2") format("woff2"); 
 }
 /* dm-sans-500 - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
+  font-display: swap; 
+  font-family: "DM Sans";
   font-style: normal;
   font-weight: 500;
-  src: url('./assets/fonts/dm-sans-v16-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./assets/fonts/dm-sans-v16-latin-500.woff2") format("woff2"); 
 }
 /* dm-sans-700 - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'DM Sans';
+  font-display: swap; 
+  font-family: "DM Sans";
   font-style: normal;
   font-weight: 700;
-  src: url('./assets/fonts/dm-sans-v16-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./assets/fonts/dm-sans-v16-latin-700.woff2") format("woff2"); 
 }
 
 
-/* You can add global styles to this file, and also import other style files */
-body{
-    margin: 0;
-    font-family: 'DM Sans', sans-serif;
-    max-width: 1440px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-
-}
-
-app-root{
-    width: 100%;
-    display: flex;
-}
-
-html{
+body {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-    display: flex;
-    justify-content: center;
+}
+
+app-root {
+  width: 100%;
+  display: flex;
+}
+
+html {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 body.startpage-background {
-  background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.7) 100%),
-    url('/assets/img/startBG.jpg') no-repeat center center;
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 55%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("/assets/img/startBG.jpg") no-repeat center center;
   background-size: cover;
 }
 
 body.signup-background {
-  background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.7) 100%),
-    url('/assets/img/laptop.jpg') no-repeat center center;
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 55%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("/assets/img/laptop.jpg") no-repeat center center;
   background-size: cover;
 }
 
 body.login-background {
-  background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.7) 100%),
-    url('/assets/img/popcorn.jpg') no-repeat center center;
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 55%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("/assets/img/popcorn.jpg") no-repeat center center;
   background-size: cover;
 }
 
 body.background {
-    background-color: #141414;
+  background-color: #141414;
 }
-
 
 input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px #1b1b22d9 inset !important;
   -webkit-box-shadow: 0 0 0px 1000px #1b1b22d9 inset !important;
-  -webkit-text-fill-color: #D3D3D3 !important;
+  -webkit-text-fill-color: #d3d3d3 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-
 .toast {
-  display: flex!important;
+  display: flex !important;
   position: fixed;
   align-items: center;
   bottom: 20px;
   left: 20px;
-  padding-inline: 0!important;
-  padding-block: 0!important;
+  padding-inline: 0 !important;
+  padding-block: 0 !important;
   border-radius: 20px;
   color: white;
   font-weight: bold;
   z-index: 1000;
-  background-color: #2E3EDF!important;
+  background-color: #2e3edf !important;
   height: 80px;
   width: 540px;
-  main{
+  main {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex: 1;
   }
-  button{
+  button {
     width: 108px;
     height: 48px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 40px;
     border: none;
     margin-right: 20px;
   }
-  article{
+  article {
     border-radius: 20px 0 0 20px;
     width: 38px;
     height: 100%;
   }
-  aside{
+  aside {
     border-inline-start: 1px solid white;
     width: 50px;
     display: flex;
@@ -124,29 +131,28 @@ input:-webkit-autofill {
     align-items: center;
     height: 32px;
   }
-  img{
+  img {
     width: 32px;
     height: auto;
     padding: 20px;
   }
-  p{
+  p {
     flex: 1;
     margin-inline: 5px;
   }
-  .success{
+  .success {
     background-color: greenyellow;
   }
-  .error{
+  .error {
     background-color: red;
   }
 }
 
-.toastSuccess{
+.toastSuccess {
   width: 615px;
 }
 
-
-@media (max-width:720px){
+@media (max-width: 720px) {
   .toast {
     flex-direction: column;
     justify-content: flex-start;
@@ -155,24 +161,24 @@ input:-webkit-autofill {
     left: 0;
     bottom: 0;
     border-radius: 20px 20px 0 0;
-    article{
+    article {
       width: 100%;
       height: 16px;
       border-radius: 20px 20px 0 0;
     }
-    aside{
+    aside {
       border-inline-start: none;
     }
-    main{
+    main {
       padding: 30px;
       display: flex;
       align-items: center;
     }
-    button{
+    button {
       position: absolute;
       top: 150px;
-     left: 50%;
-     transform: translateX(-50%);
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

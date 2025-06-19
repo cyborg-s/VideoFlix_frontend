@@ -6,10 +6,10 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-startpage',
   imports: [FormsModule],
   templateUrl: './startpage.html',
-  styleUrl: './startpage.scss'
+  styleUrl: './startpage.scss',
 })
 export class Startpage {
-   email: string = '';
+  email: string = '';
 
   constructor(private router: Router) {}
 

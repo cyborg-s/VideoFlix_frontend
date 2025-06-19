@@ -1,26 +1,25 @@
-main{
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-    width: 100%;
+main {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  width: 100%;
 }
 
-
-.footer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .outlet {
-    width: 100%;
-    max-width: 1440px;
+  width: 100%;
+  max-width: 1440px;
   flex: 1;
   display: flex;
   align-items: center;
@@ -31,12 +30,12 @@ main{
   align-items: flex-start;
 }
 
-app-header{
-    width: 100%;
-    display: flex;
-    z-index: 1;
+app-header {
+  width: 100%;
+  display: flex;
+  z-index: 1;
 }
 
-app-player{
-    width: 100%;
+app-player {
+  width: 100%;
 }

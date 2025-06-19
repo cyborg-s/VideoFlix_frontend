@@ -289,25 +289,21 @@
   display: none !important;
 }
 
-
-
 .toast-message.show {
   opacity: 1;
 }
 
 @media (max-width: 720px) {
   .video-wrapper {
-    max-width: 100vw; // Mobile volle Breite
+    max-width: 100vw;
   }
 
-  /* VideoJS Player Container */
   .video-js {
     height: auto !important;
     aspect-ratio: 16 / 9;
-    max-height: 60vh; // evtl. kleiner auf Mobile
+    max-height: 60vh;
   }
 
-  /* Header: Logo links, Titel Mitte, Back rechts */
   .video-header-mobile {
     display: flex;
     justify-content: space-between;
@@ -367,7 +363,6 @@
     z-index: 20;
   }
 
-  /* Controls unten */
   ::ng-deep .video-js .vjs-control-bar {
     height: 40px !important;
     padding: 0 10px !important;
@@ -376,7 +371,6 @@
     align-items: center !important;
   }
 
-  /* Nur Playback Rate Button anzeigen */
   ::ng-deep .video-js .vjs-control-bar > * {
     display: none !important;
   }
@@ -386,7 +380,6 @@
     margin-left: auto !important;
   }
 
-  /* Progressbar über der Control Bar */
   ::ng-deep .video-js .vjs-progress-control {
     display: block !important;
 
@@ -424,7 +417,6 @@
     pointer-events: auto;
   }
 
-  /* 10 Sek Vor und Zurück Buttons (Custom) - sichtbar und groß */
   ::ng-deep .vjs-forward10-button,
   ::ng-deep .vjs-backward10-button {
     position: absolute !important;
@@ -438,7 +430,6 @@
     color: white;
   }
 
-  /* Positionieren relativ zum Playbutton */
   ::ng-deep .vjs-forward10-button {
     right: 25%;
   }

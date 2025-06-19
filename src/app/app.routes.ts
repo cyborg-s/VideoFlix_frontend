@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/puplic.guard';
 import { dashboardResolver } from './dashboard/resolver';
-import { VideoDetailResolver } from './video-detail/detail.resolver'; // ✅ Resolver importieren
+import { VideoDetailResolver } from './video-detail/detail.resolver';
 
 export const routes: Routes = [
   {
@@ -36,12 +36,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./dashboard/dashboard').then((m) => m.Dashboard),
     canActivate: [AuthGuard],
-    resolve: { categories: dashboardResolver }, // ✅ Resolver hier einfügen
+    resolve: { categories: dashboardResolver },
   },
   {
     path: 'video/:id',
     loadComponent: () =>
-      import('./video-detail/video-detail').then((m) => m.VideoDetailComponent),
+      import('./video-detail/video-detail').then((m) => m.VideoDetail),
     canActivate: [AuthGuard],
     resolve: {
       video: VideoDetailResolver,

@@ -7,13 +7,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './video-detail.html',
-  styleUrls: ['./video-detail.scss']
+  styleUrls: ['./video-detail.scss'],
 })
-export class VideoDetailComponent implements OnInit {
+export class VideoDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  video: any;  // Optional: kannst du auch typisieren
+  video: any; // Optional: kannst du auch typisieren
 
   ngOnInit() {
     this.video = this.route.snapshot.data['video'];
@@ -27,7 +27,7 @@ export class VideoDetailComponent implements OnInit {
 
   playVideo() {
     this.router.navigate(['/player', this.video.id], {
-      queryParams: { position: this.video.position_in_seconds || 0 }
+      queryParams: { position: this.video.position_in_seconds || 0 },
     });
   }
 
@@ -36,8 +36,7 @@ export class VideoDetailComponent implements OnInit {
       'background-image': `linear-gradient(180deg, rgba(20, 20, 20, 0.6) 0%, rgba(20, 20, 20, 0) 50%, #141414 100%), url(${this.video?.thumbnail})`,
       'background-size': 'cover',
       'background-position': 'center',
-      'background-repeat': 'no-repeat'
+      'background-repeat': 'no-repeat',
     };
   }
 }
-

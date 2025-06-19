@@ -1,8 +1,7 @@
-
 <main>
-    <app-header></app-header>
-    <div class="outlet" [ngClass]="{'dashboard-align-start': isDashboardRoute}">
+  <app-header></app-header>
+  <div class="outlet" [ngClass]="{'dashboard-align-start': isDashboardRoute}">
     <router-outlet />
-    </div>
-    <app-footer [isDashboard]="isDashboardRoute" class="footer"></app-footer>
+  </div>
+  <app-footer [isDashboard]="isDashboardRoute" class="footer"></app-footer>
 </main>

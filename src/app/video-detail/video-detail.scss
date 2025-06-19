@@ -11,12 +11,12 @@
   left: 0;
   height: 42vh;
   width: 100%;
-    z-index: 0;
+  z-index: 0;
 }
 
 .video-detail-content {
   padding-top: calc(42vh - 128px);
-  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   position: relative;
 
   h1 {
@@ -31,7 +31,7 @@
 
   .play-button {
     height: 48px;
-    background-color: #2E3EDF;
+    background-color: #2e3edf;
     border: none;
     border-radius: 40px;
     padding-inline: 24px;
@@ -39,7 +39,7 @@
     gap: 10px;
     font-size: 18px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #ffffff;
     display: flex;
     align-items: center;
   }

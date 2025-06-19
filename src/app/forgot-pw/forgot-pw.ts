@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './forgot-pw.html',
-  styleUrls: ['./forgot-pw.scss']
+  styleUrls: ['./forgot-pw.scss'],
 })
 export class ForgotPw {
   email: string = '';
@@ -25,7 +25,7 @@ export class ForgotPw {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.email = params['email'] || '';
     });
   }
@@ -38,12 +38,16 @@ export class ForgotPw {
 
     this.authService.requestPasswordReset(this.email).subscribe({
       next: () => {
-        this.showToastMessage('Wenn die E-Mail existiert, wurde ein Link zum Zurücksetzen verschickt.');
+        this.showToastMessage(
+          'Wenn die E-Mail existiert, wurde ein Link zum Zurücksetzen verschickt.'
+        );
       },
       error: (error) => {
         console.error('Fehler beim Passwort-Reset Request:', error);
-        this.showToastMessage('Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es später erneut.');
-      }
+        this.showToastMessage(
+          'Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es später erneut.'
+        );
+      },
     });
   }
 
@@ -52,14 +56,11 @@ export class ForgotPw {
       this.toastMessage = message;
       this.showToast = true;
       this.cdr.detectChanges();
-
-      
     });
   }
 
-  closeToast(){
+  closeToast() {
     this.showToast = false;
     this.cdr.detectChanges();
   }
-
 }

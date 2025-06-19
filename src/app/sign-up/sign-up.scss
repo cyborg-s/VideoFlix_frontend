@@ -69,11 +69,11 @@ div {
       color: #ffffff;
     }
     button:disabled {
-      background-color: #ccc; /* hellgrau */
-      color: #666; /* dunkleres Grau für Text */
+      background-color: #ccc;
+      color: #666;
       cursor: not-allowed;
     }
-    .error-message{
+    .error-message {
       border: none;
       background-color: transparent;
       height: 10px;
@@ -85,16 +85,13 @@ div {
   }
 }
 
-
-
-.warning{
-  height: 12px!important;
-  width: auto!important;
+.warning {
+  height: 12px !important;
+  width: auto !important;
 }
 
-
-@media (max-width:720px){
-  h1{
-    font-size: 40px!important;
+@media (max-width: 720px) {
+  h1 {
+    font-size: 40px !important;
   }
 }
