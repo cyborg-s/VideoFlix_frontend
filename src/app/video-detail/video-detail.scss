@@ -44,3 +44,10 @@
     align-items: center;
   }
 }
+
+
+@media (max-width: 350px) {
+  .video-detail-container{
+    padding: 0;
+  }
+}

@@ -88,6 +88,7 @@
 
 h1 {
   font-size: 88px;
+      width: max-content;
 }
 
 p {
@@ -112,7 +113,7 @@ p {
 
 .right-gradient {
   position: absolute;
-  top: 91px;
+  top: 85px;
   right: 0;
   width: 200px;
   height: calc(100% - 91px);
@@ -136,6 +137,12 @@ p {
 
 h2 {
   font-size: 22px;
+}
+
+@media (max-width: 900px) {
+  h1{
+    font-size: 64px;
+  }
 }
 
 @media (max-width: 720px) {
