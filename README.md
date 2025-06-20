@@ -20,7 +20,7 @@ Welcome to the **VideoFlix** frontend – a modern Angular 20 Single Page Applic
 
 ```bash
 git clone https://github.com/cyborg-s/VideoFlix_frontend.git
-cd videoflix-frontend
+cd VideoFlix-frontend
 ```
 
 ---
