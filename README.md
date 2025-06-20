@@ -1,67 +1,73 @@
 # 🎬 VideoFlix Frontend (Angular 20)
 
-Willkommen beim **VideoFlix**-Frontend – einer Angular 20 Single Page Application, die zusammen mit dem [VideoFlix Backend (Django/DRF)](https://github.com/cyborg-s/videoflix-backend) eine vollständige Netflix-ähnliche Plattform bildet.
+Welcome to the **VideoFlix** frontend – a modern Angular 20 Single Page Application that, together with the [VideoFlix Backend (Django/DRF)](https://github.com/cyborg-s/videoflix-backend), forms a complete Netflix-like streaming platform.
 
 ---
 
-## 📦 Projektübersicht
+## 📦 Project Overview
 
-- ✅ Angular 20 mit Standalone-Komponenten
-- 🔐 Authentifizierung mit Token & Guards
-- 🎞️ Videowiedergabe mit Video.js
-- 🧠 Resolvers, Lazy Loading, Routing
-- ⚙️ Kommunikation via REST API mit Django Backend
+- ✅ Angular 20 with standalone components  
+- 🔐 Token-based authentication with route guards  
+- 🎞️ Video playback powered by Video.js  
+- 🧠 Resolvers, Lazy Loading, and Routing  
+- ⚙️ Communication via REST API with Django backend  
 
 ---
 
-## 🚀 Schnellstart
+## 🚀 Quick Start
 
-### 1. Repository klonen
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/cyborg-s/VideoFlix_frontend.git
 cd videoflix-frontend
 ```
+
 ---
 
-### 2. Abhängigkeiten installieren
+### 2. Install dependencies
+
 ```bash
 npm install
 ```
+
 ---
 
-### 3. Backend starten
-Falls du das Backend noch nicht gestartet hast, folge der Anleitung im Backend-Repository oder:
+### 3. Start the backend
+
+If the backend isn’t running yet, follow the instructions in the backend repo or:
 
 ```bash
 git clone https://github.com/cyborg-s/VideoFlix_backend.git
 cd videoflix-backend
 docker-compose up --build
 ```
-Backend sollte unter http://localhost:8000 laufen.
+
+The backend should run at http://localhost:8000
 
 ---
 
-### 4. Frontend starten
+### 4. Start the frontend
+
 ```bash
 ng serve
 ```
 
 ---
 
-### 🔐 Authentifizierung
-Das Frontend nutzt Token-basierte Authentifizierung:
+### 🔐 Authentication
 
-Bei erfolgreichem Login wird das Token im localStorage gespeichert.
+The frontend uses token-based authentication:
 
-AuthGuard schützt geschützte Routen (z. B. /dashboard, /player/:id)
-
-GuestGuard verhindert Zugriff auf Login/Signup, wenn bereits eingeloggt.
+- Upon successful login, a token is stored in `localStorage`
+- `AuthGuard` protects secure routes (e.g., `/dashboard`, `/player/:id`)
+- `GuestGuard` blocks access to `/login` and `/signup` when already authenticated
 
 ---
 
-### 📁 Projektstruktur (Frontend)
-<code><pre>
+### 📁 Project Structure (Frontend)
+
+<pre><code>
 videoflix-frontend/
 ├── src/
 │   ├── app/
@@ -79,36 +85,33 @@ videoflix-frontend/
 │   │   ├── sign-up/
 │   │   ├── startpage/
 │   │   ├── video-detail/
-|   |   ├── app.html
-|   |   └── app.ts
-│   ├── assets/ 
-|   ├── main.html
-|   ├── main.ts
-|   └── styles.scss
+│   │   ├── app.html
+│   │   └── app.ts
+│   ├── assets/
+│   ├── main.html
+│   ├── main.ts
+│   └── styles.scss
 ├── angular.json
 ├── package.json
 └── README.md
 </code></pre>
 
 ---
-### 🧰 Tools & Technologien
-Angular 20
 
-Angular Router
+### 🧰 Tools & Technologies
 
-RxJS & Observables
-
-Video.js
-
-SCSS
-
-Django REST Framework (Backend)
-
-Docker (Backend)
+- Angular 20  
+- Angular Router  
+- RxJS & Observables  
+- Video.js  
+- SCSS  
+- Django REST Framework (Backend)  
+- Docker (Backend)  
 
 ---
 
-### 🙋‍♂️ Autor
+### 🙋‍♂️ Author
+
 Sascha Nyßen
 
-Dieses Projekt ist ein Teil eines persönlichen Fullstack-Projekts zum Thema Videostreaming.
+This project is part of a personal fullstack project focused on video streaming.
