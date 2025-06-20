@@ -65,20 +65,26 @@ GuestGuard verhindert Zugriff auf Login/Signup, wenn bereits eingeloggt.
 videoflix-frontend/
 ├── src/
 │   ├── app/
-│   │   ├── startpage/
-│   │   ├── login/
-│   │   ├── sign-up/
 │   │   ├── dashboard/
-│   │   ├── video-detail/
-│   │   ├── player/
+│   │   ├── footer/
 │   │   ├── forgot-pw/
-│   │   ├── password-reset/
 │   │   ├── guards/
+│   │   ├── header/
+│   │   ├── imprint/
+│   │   ├── legalnotice/
+│   │   ├── login/
+│   │   ├── password-reset/
+│   │   ├── player/
 │   │   ├── services/
-│   │   └── models/
-│   └── environments/
-│       ├── environment.ts
-│       └── environment.prod.ts
+│   │   ├── sign-up/
+│   │   ├── startpage/
+│   │   ├── video-detail/
+|   |   ├── app.html
+|   |   └── app.ts
+│   ├── assets/ 
+|   ├── main.html
+|   ├── main.ts
+|   └── styles.scss
 ├── angular.json
 ├── package.json
 └── README.md
