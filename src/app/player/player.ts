@@ -32,6 +32,9 @@ videojs.registerComponent('QualityMenuButton', QualityMenuButton);
 videojs.registerComponent('TitleDisplay', TitleDisplay);
 videojs.registerComponent('CenteredControls', CenteredControls);
 
+/**
+ * Component for playing videos with custom controls and adaptive quality.
+ */
 @Component({
   selector: 'app-player',
   standalone: true,
@@ -40,16 +43,75 @@ videojs.registerComponent('CenteredControls', CenteredControls);
   styleUrls: ['./player.scss'],
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy {
+  /**
+   * Reference to the video player container element.
+   */
   @ViewChild('target', { static: true }) target!: ElementRef;
 
+  /**
+   * ID of the currently loaded video.
+   */
   videoId!: number;
+
+  /**
+   * URL of the current video source, adapted to screen resolution.
+   */
   videoUrl!: string;
+
+  /**
+   * Video metadata object loaded from the backend.
+   */
   video: any;
+
+  /**
+   * Loading state indicator.
+   */
   loading = true;
+
+  /**
+   * Video.js player instance.
+   */
   player!: Player;
 
+  /**
+   * Subscription to route parameter changes.
+   */
   private routeSub!: Subscription;
+
+  /**
+   * Subscription for periodic progress tracking.
+   */
   private progressInterval!: Subscription;
+
+  /**
+   * Label describing current video quality (e.g., "1080p").
+   */
+  currentQualityLabel: string = '';
+
+  /**
+   * Title of the current video.
+   */
+  videoTitle: string = '';
+
+  /**
+   * Title string including resolution info for display.
+   */
+  titleWithResolution: string = '';
+
+  /**
+   * Generic title string.
+   */
+  title: string = '';
+
+  /**
+   * Handler for window resize events to toggle fullscreen.
+   */
+  private resizeHandler = () => this.toggleFullscreenOnLandscape();
+
+  /**
+   * Handler for device orientation change events to toggle fullscreen.
+   */
+  private orientationChangeHandler = () => this.toggleFullscreenOnLandscape();
 
   constructor(
     private route: ActivatedRoute,
@@ -59,14 +121,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     private location: Location
   ) {}
 
-  currentQualityLabel: string = '';
-  videoTitle: string = '';
-  titleWithResolution: string = '';
-  title: string = '';
-
-  private resizeHandler = () => this.toggleFullscreenOnLandscape();
-  private orientationChangeHandler = () => this.toggleFullscreenOnLandscape();
-
+  /**
+   * After view initialization, sets up back button click listener.
+   */
   ngAfterViewInit() {
     const backBtn = this.target.nativeElement.querySelector('.back-button');
     if (backBtn) {
@@ -76,6 +133,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * On component initialization, subscribes to route params and loads video.
+   */
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
       this.videoId = +params['id'];
@@ -83,6 +143,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * On component destroy, cleans up subscriptions, event listeners, and disposes player.
+   */
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
     this.progressInterval?.unsubscribe();
@@ -96,6 +159,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Loads video metadata by ID, sets resolution, initializes player and tracking.
+   */
   private loadVideo() {
     this.loading = true;
     this.videoService.getVideoById(this.videoId).subscribe((video) => {
@@ -124,6 +190,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Sets the video URL and quality label based on current window width.
+   */
   private setVideoResolution() {
     const width = window.innerWidth;
     if (width >= 1200) {
@@ -142,6 +211,10 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.updateTitleWithResolution();
   }
 
+  /**
+   * Initializes the Video.js player with given start position and custom controls.
+   * @param startAt The start time in seconds where playback should begin.
+   */
   private initPlayer(startAt: number) {
     if (!this.videoUrl || !this.target) return;
 
@@ -151,7 +224,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     this.player = videojs(this.target.nativeElement, {
       controls: true,
-
       preload: 'auto',
       fluid: true,
       pip: false,
@@ -219,10 +291,25 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Current toast message shown to the user.
+   */
   toastMessage = '';
+
+  /**
+   * Boolean flag to show/hide toast notification.
+   */
   showToastVisible = false;
+
+  /**
+   * Timeout ID for auto-hiding toast.
+   */
   toastTimeout?: any;
 
+  /**
+   * Shows a toast notification with given message for 3 seconds.
+   * @param message The message to display in the toast.
+   */
   private showToast(message: string) {
     if (this.toastTimeout) {
       clearTimeout(this.toastTimeout);
@@ -239,6 +326,11 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     }, 3000);
   }
 
+  /**
+   * Changes the video quality by switching source URL and updating player state.
+   * @param url The new video source URL.
+   * @param label The label of the new quality (e.g. "720p").
+   */
   private changeQuality(url: string, label: string) {
     if (!this.player) return;
 
@@ -260,6 +352,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.showToast(`Qualität geändert auf ${label}`);
   }
 
+  /**
+   * Starts periodic saving of video playback progress every 5 seconds.
+   */
   private startProgressTracking() {
     if (this.progressInterval) {
       this.progressInterval.unsubscribe();
@@ -274,10 +369,17 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Navigates back in browser history.
+   */
   goBack() {
     this.location.back();
   }
 
+  /**
+   * Returns the resolution label based on current window width.
+   * @returns The resolution label string like "1080p".
+   */
   getResolutionLabel(): string {
     const width = window.innerWidth;
     if (width >= 1200) return '1080p';
@@ -286,6 +388,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     else return '180p';
   }
 
+  /**
+   * Updates the title string to include video title and current quality label.
+   */
   private updateTitleWithResolution() {
     if (this.videoTitle && this.currentQualityLabel) {
       this.titleWithResolution = `${this.videoTitle} - ${this.currentQualityLabel}`;
@@ -294,12 +399,20 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Checks if the device is a mobile device in landscape orientation.
+   * @returns True if mobile device and landscape, otherwise false.
+   */
   private isMobileLandscape(): boolean {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isLandscape = window.innerWidth > window.innerHeight;
     return isMobile && isLandscape;
   }
 
+  /**
+   * Toggles fullscreen style for the video player when in mobile landscape orientation.
+   * Adjusts styles of the video container and control bar accordingly.
+   */
   private toggleFullscreenOnLandscape() {
     if (!this.target) return;
     const videoEl: HTMLElement = this.target.nativeElement;
@@ -313,16 +426,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       videoEl.style.width = '100vw';
       videoEl.style.height = '100vh';
       videoEl.style.zIndex = '9999';
-      videoEl.style.pointerEvents = 'auto';
 
       if (controlBar) {
-        controlBar.style.position = 'absolute';
+        controlBar.style.width = '100%';
+        controlBar.style.position = 'fixed';
         controlBar.style.bottom = '0';
         controlBar.style.left = '0';
-        controlBar.style.width = '100%';
-        controlBar.style.zIndex = '10000';
-        controlBar.style.background = 'rgba(0, 0, 0, 0.5)';
-        controlBar.style.pointerEvents = 'auto';
       }
     } else {
       videoEl.style.position = '';
@@ -331,16 +440,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       videoEl.style.width = '';
       videoEl.style.height = '';
       videoEl.style.zIndex = '';
-      videoEl.style.pointerEvents = '';
 
       if (controlBar) {
         controlBar.style.position = '';
         controlBar.style.bottom = '';
         controlBar.style.left = '';
         controlBar.style.width = '';
-        controlBar.style.zIndex = '';
-        controlBar.style.background = '';
-        controlBar.style.pointerEvents = '';
       }
     }
   }

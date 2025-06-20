@@ -108,7 +108,7 @@ Docker (Backend)
 
 ---
 
-### 10. 🙋‍♂️ Autor
+### 🙋‍♂️ Autor
 Sascha Nyßen
 
 Dieses Projekt ist ein Teil eines persönlichen Fullstack-Projekts zum Thema Videostreaming.

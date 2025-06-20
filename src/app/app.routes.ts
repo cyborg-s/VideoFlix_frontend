@@ -1,3 +1,9 @@
+/**
+ * Application route definitions for Angular Router.
+ * Each route specifies the path, the component to load, 
+ * route guards for access control, and optional resolvers for data fetching.
+ */
+
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/puplic.guard';
@@ -30,7 +36,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./legalnotice/legalnotice').then((m) => m.Legalnotice),
   },
-
   {
     path: 'dashboard',
     loadComponent: () =>
@@ -47,7 +52,6 @@ export const routes: Routes = [
       video: VideoDetailResolver,
     },
   },
-
   {
     path: 'password-reset/:uid/:token',
     loadComponent: () =>

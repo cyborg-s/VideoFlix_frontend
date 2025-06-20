@@ -1,3 +1,11 @@
+/**
+ * Bootstraps the Angular application by initializing the root component and 
+ * configuring providers, including HTTP client with interceptors.
+ * 
+ * This setup includes the authentication interceptor to handle auth-related 
+ * HTTP requests globally.
+ */
+
 import { bootstrapApplication } from '@angular/platform-browser';
 import {
   provideHttpClient,
