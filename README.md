@@ -16,6 +16,10 @@ Welcome to the **VideoFlix** frontend – a modern Angular 20 Single Page Applic
 
 ## 🚀 Quick Start
 
+### Requirements
+
+- Angular
+
 ### 1. Clone the repository
 
 ```bash
