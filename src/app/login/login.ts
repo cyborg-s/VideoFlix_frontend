@@ -72,7 +72,7 @@ export class Login implements OnInit {
             }, 3000);
           },
           error: (error) => {
-            console.error('Aktivierung fehlgeschlagen:', error);
+            console.error('Activation failed:', error);
           },
         });
       }
@@ -112,7 +112,7 @@ export class Login implements OnInit {
             this.cdr.detectChanges();
           }
         } else {
-          alert('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
+          alert('An error has occurred. Please try again.');
         }
       },
     });

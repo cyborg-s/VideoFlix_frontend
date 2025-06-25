@@ -88,13 +88,35 @@ export class AuthService {
       if (!token?.trim() || !id?.trim()) return of(false);
 
       return this.validateToken(token, id).pipe(
-        map((res) => res.success === true),
-        catchError(() => of(false))
+        map((res) => {
+          if (res.success === true) {
+            return true;
+          } else {
+            this.clearLocalStorage();
+            return false;
+          }
+        }),
+        catchError(() => {
+          this.clearLocalStorage();
+          return of(false);
+        })
       );
     }
 
     return of(false);
   }
+
+
+
+  /**
+ * Clears authentication-related data from localStorage.
+ */
+clearLocalStorage(): void {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userEmail');
+}
+
 
   /**
    * Logs out the current user by clearing stored credentials

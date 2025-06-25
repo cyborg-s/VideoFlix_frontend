@@ -84,43 +84,54 @@ export class Signup implements OnInit {
    * Initiates the user registration process after validation.
    * Displays appropriate success or error messages.
    */
-  signUp(): void {
-    this.passwordError = '';
-    this.showErrorToast = false;
+signUp(): void {
+  this.passwordError = '';
+  this.showErrorToast = false;
 
-    if (this.password !== this.repeatedPassword) {
-      this.passwordError = 'Passwords must match.';
-      this.cdr.detectChanges();
-      return;
-    }
-
-    this.authService
-      .register(this.email, this.password, this.repeatedPassword)
-      .subscribe({
-        next: (res) => {
-          this.passwordError = '';
-          this.showSuccessToastWithButton(
-            res.message || 'Registration successful. Please confirm your email.'
-          );
-        },
-        error: (err) => {
-          const serverError =
-            err.error?.password?.[0] ||
-            err.error?.email?.[0] ||
-            err.error?.non_field_errors?.[0];
-
-          if (serverError) {
-            this.showToast(serverError);
-          } else if (typeof err.error === 'string') {
-            this.showToast(err.error);
-          } else {
-            this.showToast(
-              'Please check your inputs and try again.'
-            );
-          }
-        },
-      });
+  if (this.password !== this.repeatedPassword) {
+    this.passwordError = 'Passwords must match.';
+    this.cdr.detectChanges();
+    return;
   }
+
+  this.authService
+    .register(this.email, this.password, this.repeatedPassword)
+    .subscribe({
+      next: (res) => {
+        this.passwordError = '';
+        this.showSuccessToastWithButton(
+          res.message || 'Registration successful. Please confirm your email.'
+        );
+      },
+      error: (err) => {
+        let serverError = '';
+
+        // Falls Backend-Fehler als Objekt mit Arrays vorliegen, alle Meldungen zusammenfassen
+        if (err.error && typeof err.error === 'object') {
+          // Beispiel: { password: [ "...", "..." ], email: [...] }
+          const messages = [];
+
+          for (const key in err.error) {
+            if (Array.isArray(err.error[key])) {
+              messages.push(...err.error[key]);
+            } else if (typeof err.error[key] === 'string') {
+              messages.push(err.error[key]);
+            }
+          }
+
+          serverError = messages.join(' '); // Alle Fehler in einem String zusammenfügen
+        } else if (typeof err.error === 'string') {
+          serverError = err.error;
+        }
+
+        if (serverError) {
+          this.showToast(serverError);
+        } else {
+          this.showToast('Please check your inputs and try again.');
+        }
+      },
+    });
+}
 
   /**
    * Shows an error toast with the specified message.
