@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 100%;
+  max-width: 1440px;
   height: 54vw;
   max-height: 800px;
 
@@ -61,7 +61,7 @@
       gap: 16px;
       padding-bottom: 10px;
       -webkit-overflow-scrolling: touch;
-
+      padding-inline-end: 150px;
       -ms-overflow-style: none;
       scrollbar-width: none;
     }

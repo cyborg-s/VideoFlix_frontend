@@ -29,7 +29,6 @@ export class VideoDetail implements OnInit {
    */
   ngOnInit() {
     this.video = this.route.snapshot.data['video'];
-    console.log('Resolved video:', this.video);
 
     if (!this.video) {
       this.router.navigate(['/dashboard']);

@@ -112,7 +112,7 @@ export class Login implements OnInit {
             this.cdr.detectChanges();
           }
         } else {
-          alert('An error has occurred. Please try again.');
+          this.errorMessage = "ERROR"
         }
       },
     });
